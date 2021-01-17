@@ -1,0 +1,21 @@
+{
+  "name": "resizer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "ascii-table": "0.0.9",
+    "date-fns": "2.16.1",
+    "digitalocean": "1.2.1",
+    "next": "9.4.2",
+    "rcon-client": "4.2.3",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "superagent": "5.2.2",
+    "tweetnacl": "1.0.3"
+  }
+}
