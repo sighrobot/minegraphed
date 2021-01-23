@@ -1,9 +1,10 @@
 import React from "react";
 import { formatDistance } from "date-fns";
+const { LATEST, PREVIOUS, PLAYER_IDS } = require("../lib/constants");
 
-const caleb = require("../stats/2021-01-16/0fa87154-f7ad-4810-a4e3-85eda879d4ef.json");
-const jesse = require("../stats/2021-01-16/1e84adf7-b91a-4000-a5dd-fd847d910265.json");
-const abe = require("../stats/2021-01-16/036a0489-aad6-4c44-9a5e-31b7ba41d490.json");
+const jesse = require(`../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
+const caleb = require(`../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
+const abe = require(`../stats/${LATEST}/${PLAYER_IDS.abe}.json`);
 
 const players = {
   caleb,
@@ -12,9 +13,9 @@ const players = {
 };
 
 const oldPlayers = {
-  caleb: require("../stats/2021-01-09/0fa87154-f7ad-4810-a4e3-85eda879d4ef.json"),
-  jesse: require("../stats/2021-01-09/1e84adf7-b91a-4000-a5dd-fd847d910265.json"),
-  abe: require("../stats/2021-01-09/036a0489-aad6-4c44-9a5e-31b7ba41d490.json"),
+  caleb: require(`../stats/${PREVIOUS}/${PLAYER_IDS.caleb}.json`),
+  jesse: require(`../stats/${PREVIOUS}/${PLAYER_IDS.jesse}.json`),
+  abe: require(`../stats/${PREVIOUS}/${PLAYER_IDS.abe}.json`),
 };
 
 const stats = {};
