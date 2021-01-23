@@ -1,6 +1,6 @@
 import React from "react";
 import { formatDistance } from "date-fns";
-import { LATEST, PREVIOUS, PLAYER_IDS } from "../lib/constants";
+const { LATEST, PREVIOUS, PLAYER_IDS } = require("../lib/constants");
 
 const jesse = require(`../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
 const caleb = require(`../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
