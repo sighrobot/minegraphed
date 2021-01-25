@@ -1,0 +1,62 @@
+body {
+  font-family: arial;
+  margin: 0;
+  font-size: 16px;
+}
+
+main {
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.sessions {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.sessions a {
+  margin-right: 10px;
+}
+
+summary h3 {
+  display: inline;
+}
+
+.new-stats {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.new-stats > * {
+  margin-right: 20px;
+}
+
+.new-stats ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.new-stats li {
+  font-size: 10px;
+  line-height: 1.33;
+  font-style: italic;
+}
+
+.new-stats li img {
+  height: 18px;
+  width: 18px;
+  transform: translateY(4px);
+  margin-right: 4px;
+}
+
+.new-stats li a:first-child {
+  margin-left: 22px;
+}
+
+.new-stats li a {
+  font-size: initial;
+  font-style: initial;
+}

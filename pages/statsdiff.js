@@ -1,10 +1,10 @@
 import React from "react";
 import { formatDistance } from "date-fns";
-const { LATEST, PREVIOUS, PLAYER_IDS } = require("../lib/constants");
+const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
 
-const jesse = require(`../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
-const caleb = require(`../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
-const abe = require(`../stats/${LATEST}/${PLAYER_IDS.abe}.json`);
+const jesse = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
+const caleb = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
+const abe = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.abe}.json`);
 
 const players = {
   caleb,
@@ -13,9 +13,9 @@ const players = {
 };
 
 const oldPlayers = {
-  caleb: require(`../stats/${PREVIOUS}/${PLAYER_IDS.caleb}.json`),
-  jesse: require(`../stats/${PREVIOUS}/${PLAYER_IDS.jesse}.json`),
-  abe: require(`../stats/${PREVIOUS}/${PLAYER_IDS.abe}.json`),
+  caleb: require(`../stats/${SESSIONS[1]}/${PLAYER_IDS.caleb}.json`),
+  jesse: require(`../stats/${SESSIONS[1]}/${PLAYER_IDS.jesse}.json`),
+  abe: require(`../stats/${SESSIONS[1]}/${PLAYER_IDS.abe}.json`),
 };
 
 const stats = {};

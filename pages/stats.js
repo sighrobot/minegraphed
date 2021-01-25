@@ -1,10 +1,10 @@
 import React from "react";
 import { formatDistance } from "date-fns";
-const { LATEST, PLAYER_IDS } = require("../lib/constants");
+const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
 
-const jesse = require(`../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
-const caleb = require(`../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
-const abe = require(`../stats/${LATEST}/${PLAYER_IDS.abe}.json`);
+const jesse = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
+const caleb = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
+const abe = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.abe}.json`);
 
 const players = {
   caleb,
