@@ -1,5 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+#__next {
+  width: 100%;
+}
+
 body {
-  font-family: arial;
+  font-family: "Courier New", Courier, monospace;
   margin: 0;
   font-size: 16px;
 }
@@ -20,13 +28,23 @@ main {
   margin-right: 10px;
 }
 
+summary {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  display: inline;
+}
+
+a.active {
+  font-weight: bold;
+}
+
 summary h3 {
   display: inline;
 }
 
 .new-stats {
-  display: flex;
-  flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .new-stats > * {
@@ -45,6 +63,7 @@ summary h3 {
   font-style: italic;
 }
 
+.stats-item img,
 .new-stats li img {
   height: 18px;
   width: 18px;
@@ -59,4 +78,13 @@ summary h3 {
 .new-stats li a {
   font-size: initial;
   font-style: initial;
+}
+
+.stats-item {
+  display: flex;
+  align-items: center;
+}
+
+.stats-item img {
+  transform: none;
 }

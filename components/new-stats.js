@@ -20,36 +20,46 @@ const NewStats = ({ date }) => {
     }
   });
 
+  const sortedByItem = Object.keys(byItem).sort((a, b) => (a > b ? 1 : -1));
+
   return (
-    <details open>
-      <summary>
-        <h3>What's new?</h3>
-      </summary>
+    <div className="new-stats">
+      <h3>What's new?</h3>
 
-      <div className="new-stats">
+      <p>
+        {sortedByItem.map((i) => {
+          const prettyName = i.replace(/_/g, " ");
+          const imgSrc = itemsByName[prettyName]?.icon;
+
+          return (
+            imgSrc && <img key={i} src={`data:image/png;base64,${imgSrc}`} />
+          );
+        })}
+      </p>
+
+      <details>
+        <summary>Details</summary>
         <ul>
-          {Object.keys(byItem)
-            .sort((a, b) => (a > b ? 1 : -1))
-            .map((i) => {
-              const prettyName = i.replace(/_/g, " ");
-              const imgSrc = itemsByName[prettyName]?.icon;
+          {sortedByItem.map((i) => {
+            const prettyName = i.replace(/_/g, " ");
+            const imgSrc = itemsByName[prettyName]?.icon;
 
-              return (
-                <li key={i}>
-                  {imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />}
-                  <Link href={`/stat/${i}`}>
-                    <a>{prettyName}</a>
-                  </Link>{" "}
-                  {byItem[i]
-                    .sort((a, b) => (a > b ? 1 : -1))
-                    .map((s) => s.replace(/[._]/g, " "))
-                    .join(", ")}
-                </li>
-              );
-            })}
+            return (
+              <li key={i}>
+                {imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />}
+                <Link href={`/stat/${i}`}>
+                  <a>{prettyName}</a>
+                </Link>{" "}
+                {byItem[i]
+                  .sort((a, b) => (a > b ? 1 : -1))
+                  .map((s) => s.replace(/[._]/g, " "))
+                  .join(", ")}
+              </li>
+            );
+          })}
         </ul>
-      </div>
-    </details>
+      </details>
+    </div>
   );
 };
 

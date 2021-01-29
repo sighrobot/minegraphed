@@ -10,7 +10,13 @@ const SessionLink = ({ date, latest }) => {
 
   return (
     <Link href={`/session/${date}`}>
-      <a className={latest ? "latest" : ""}>{dateString}</a>
+      <a
+        className={
+          window.location.pathname.indexOf(date) !== -1 ? "active" : ""
+        }
+      >
+        {dateString}
+      </a>
     </Link>
   );
 };
