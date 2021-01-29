@@ -1,18 +1,18 @@
 import Link from "next/link";
 import Sessions from "../components/sessions";
+import { useRouter } from "next/router";
 
 const Container = ({ children }) => {
+  const router = useRouter();
   return (
     <main>
       <header>
         <Link href="/">
-          <a className={window.location.pathname === "/" ? "active" : ""}>
-            Home
-          </a>
+          <a className={router.pathname === "/" ? "active" : ""}>Home</a>
         </Link>{" "}
         |{" "}
         <Link href="/stats">
-          <a className={window.location.pathname === "/stats" ? "active" : ""}>
+          <a className={router.pathname === "/stats" ? "active" : ""}>
             All-time
           </a>
         </Link>{" "}
