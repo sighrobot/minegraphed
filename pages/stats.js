@@ -1,10 +1,12 @@
 import React from "react";
 import { formatDistance } from "date-fns";
-const { LATEST, PLAYER_IDS } = require("../lib/constants");
+import Container from "../components/container";
+const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
+const itemsByName = require("../lib/itemsByName.json");
 
-const jesse = require(`../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
-const caleb = require(`../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
-const abe = require(`../stats/${LATEST}/${PLAYER_IDS.abe}.json`);
+const jesse = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
+const caleb = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
+const abe = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.abe}.json`);
 
 const players = {
   caleb,
@@ -63,35 +65,21 @@ const Stats = () => {
   const handleChange = (e) => setValue(e.target.value);
 
   return (
-    <div>
+    <Container>
       <input
         value={value}
         placeholder="Search stats by name or type..."
         onChange={handleChange}
       />
+
       <table>
         <tbody>
           {statTypes.map((type) => {
             return (
               <>
                 <style>{`
-                * {
-                    box-sizing: border-box;
-                }
-
-                body {
-                    font-family: courier;
-                    margin: 0;
-                    font-size: 12px;
-                    width: 100% !important;
-                }
-
-                div, #__next {
-                    width: 100%;
-                }
-
                 input {
-                    // display: block;
+                  margin-top: 30px;
                     position: sticky;
                     top: 0;
                     width: 100%;
@@ -100,10 +88,11 @@ const Stats = () => {
                     border: none;
                     outline: 0;
                     font-size: 16px;
-                    border-bottom: 1px solid black;
+                    border: 1px solid black;
                 }
 
                 table {
+                  font-size: 12px;
                     width: 100%;
                     border-collapse: collapse;
                 }
@@ -184,14 +173,23 @@ const Stats = () => {
                     );
                     const max = Math.max(...normal);
 
-                    // console.log({ normal, max: Math.max(...normal) })
+                    const prettyName = stat.replace(/_/g, " ");
+                    const imgSrc = itemsByName[prettyName]?.icon;
+                    const icon = imgSrc && (
+                      <img src={`data:image/png;base64,${imgSrc}`} />
+                    );
 
                     return (
                       <tr key={stat}>
                         <th className="subheading">
                           {type.replace(/_/g, " ")}
                         </th>
-                        <th>{stat.replace(/_/g, " ")}</th>
+                        <th>
+                          <div className="stats-item">
+                            {icon}
+                            {stat.replace(/_/g, " ")}
+                          </div>
+                        </th>
                         {Object.keys(players).map((p, idx, arr) => {
                           return (
                             <td
@@ -219,7 +217,7 @@ const Stats = () => {
           })}
         </tbody>
       </table>
-    </div>
+    </Container>
   );
 };
 

@@ -1,86 +1,96 @@
 import React from "react";
 import { formatDistance } from "date-fns";
-const { LATEST, PREVIOUS, PLAYER_IDS } = require("../lib/constants");
+const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
+const itemsByName = require("../lib/itemsByName.json");
 
-const jesse = require(`../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
-const caleb = require(`../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
-const abe = require(`../stats/${LATEST}/${PLAYER_IDS.abe}.json`);
+const buildStats = (date) => {
+  if (!date) return { stats: {}, players: {}, oldStats: {} };
 
-const players = {
-  caleb,
-  jesse,
-  abe,
-};
+  const currIdx = SESSIONS.indexOf(date);
+  const prevIdx = currIdx + 1;
 
-const oldPlayers = {
-  caleb: require(`../stats/${PREVIOUS}/${PLAYER_IDS.caleb}.json`),
-  jesse: require(`../stats/${PREVIOUS}/${PLAYER_IDS.jesse}.json`),
-  abe: require(`../stats/${PREVIOUS}/${PLAYER_IDS.abe}.json`),
-};
+  const jesse = require(`../stats/${SESSIONS[currIdx]}/${PLAYER_IDS.jesse}.json`);
+  const caleb = require(`../stats/${SESSIONS[currIdx]}/${PLAYER_IDS.caleb}.json`);
+  const abe = require(`../stats/${SESSIONS[currIdx]}/${PLAYER_IDS.abe}.json`);
 
-const stats = {};
-const oldStats = {};
+  const players = {
+    caleb,
+    jesse,
+    abe,
+  };
 
-const playerKeys = Object.keys(players);
+  const oldPlayers = {
+    caleb: require(`../stats/${SESSIONS[prevIdx]}/${PLAYER_IDS.caleb}.json`),
+    jesse: require(`../stats/${SESSIONS[prevIdx]}/${PLAYER_IDS.jesse}.json`),
+    abe: require(`../stats/${SESSIONS[prevIdx]}/${PLAYER_IDS.abe}.json`),
+  };
 
-playerKeys.forEach((player) => {
-  const statTypes = players[player].stats;
-  const statTypeKeys = Object.keys(statTypes);
+  const stats = {};
+  const oldStats = {};
 
-  statTypeKeys.forEach((statTypeKey) => {
-    const simpleStatTypeKey = statTypeKey.split("minecraft:")[1];
+  const playerKeys = Object.keys(players);
 
-    const playerStats = statTypes[statTypeKey];
-    const statKeys = Object.keys(playerStats);
+  playerKeys.forEach((player) => {
+    const statTypes = players[player].stats;
+    const statTypeKeys = Object.keys(statTypes);
 
-    if (!stats[simpleStatTypeKey]) {
-      stats[simpleStatTypeKey] = {};
-    }
+    statTypeKeys.forEach((statTypeKey) => {
+      const simpleStatTypeKey = statTypeKey.split("minecraft:")[1];
 
-    statKeys.forEach((statKey) => {
-      const simpleStatKey = statKey.split("minecraft:")[1];
+      const playerStats = statTypes[statTypeKey];
+      const statKeys = Object.keys(playerStats);
 
-      if (stats[simpleStatTypeKey][simpleStatKey]) {
-        stats[simpleStatTypeKey][simpleStatKey][player] = playerStats[statKey];
-      } else {
-        stats[simpleStatTypeKey][simpleStatKey] = {
-          [player]: playerStats[statKey],
-        };
+      if (!stats[simpleStatTypeKey]) {
+        stats[simpleStatTypeKey] = {};
       }
+
+      statKeys.forEach((statKey) => {
+        const simpleStatKey = statKey.split("minecraft:")[1];
+
+        if (stats[simpleStatTypeKey][simpleStatKey]) {
+          stats[simpleStatTypeKey][simpleStatKey][player] =
+            playerStats[statKey];
+        } else {
+          stats[simpleStatTypeKey][simpleStatKey] = {
+            [player]: playerStats[statKey],
+          };
+        }
+      });
     });
   });
-});
 
-const oldPlayerKeys = Object.keys(oldPlayers);
+  const oldPlayerKeys = Object.keys(oldPlayers);
 
-oldPlayerKeys.forEach((player) => {
-  const statTypes = oldPlayers[player].stats;
-  const statTypeKeys = Object.keys(statTypes);
+  oldPlayerKeys.forEach((player) => {
+    const statTypes = oldPlayers[player].stats;
+    const statTypeKeys = Object.keys(statTypes);
 
-  statTypeKeys.forEach((statTypeKey) => {
-    const simpleStatTypeKey = statTypeKey.split("minecraft:")[1];
+    statTypeKeys.forEach((statTypeKey) => {
+      const simpleStatTypeKey = statTypeKey.split("minecraft:")[1];
 
-    const playerStats = statTypes[statTypeKey];
-    const statKeys = Object.keys(playerStats);
+      const playerStats = statTypes[statTypeKey];
+      const statKeys = Object.keys(playerStats);
 
-    if (!oldStats[simpleStatTypeKey]) {
-      oldStats[simpleStatTypeKey] = {};
-    }
-
-    statKeys.forEach((statKey) => {
-      const simpleStatKey = statKey.split("minecraft:")[1];
-
-      if (oldStats[simpleStatTypeKey][simpleStatKey]) {
-        oldStats[simpleStatTypeKey][simpleStatKey][player] =
-          playerStats[statKey];
-      } else {
-        oldStats[simpleStatTypeKey][simpleStatKey] = {
-          [player]: playerStats[statKey],
-        };
+      if (!oldStats[simpleStatTypeKey]) {
+        oldStats[simpleStatTypeKey] = {};
       }
+
+      statKeys.forEach((statKey) => {
+        const simpleStatKey = statKey.split("minecraft:")[1];
+
+        if (oldStats[simpleStatTypeKey][simpleStatKey]) {
+          oldStats[simpleStatTypeKey][simpleStatKey][player] =
+            playerStats[statKey];
+        } else {
+          oldStats[simpleStatTypeKey][simpleStatKey] = {
+            [player]: playerStats[statKey],
+          };
+        }
+      });
     });
   });
-});
+  return { stats, oldStats, players };
+};
 
 const formatCm = (n) =>
   n >= 1e5
@@ -96,8 +106,9 @@ const formatTime = (n) => {
     .replace("hour", "hr");
 };
 
-const Stats = () => {
+const Stats = ({ date }) => {
   const [value, setValue] = React.useState("");
+  const { stats, oldStats, players } = buildStats(date);
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
 
@@ -114,23 +125,7 @@ const Stats = () => {
             return (
               <>
                 <style>{`
-                * {
-                    box-sizing: border-box;
-                }
-
-                body {
-                    font-family: courier;
-                    margin: 0;
-                    font-size: 12px;
-                    width: 100% !important;
-                }
-
-                div, #__next {
-                    width: 100%;
-                }
-
                 input {
-                    // display: block;
                     position: sticky;
                     top: 0;
                     width: 100%;
@@ -139,16 +134,17 @@ const Stats = () => {
                     border: none;
                     outline: 0;
                     font-size: 16px;
-                    border-bottom: 1px solid black;
+                    border: 1px solid black;
                 }
 
                 table {
+                    font-size: 12px;
                     width: 100%;
                     border-collapse: collapse;
                 }
 
                 th:first-child {
-                    font-size: 10px;
+                    font-size: 8px;
                 }
 
                 th:nth-child(2) {
@@ -227,14 +223,23 @@ const Stats = () => {
                     );
                     const max = Math.max(...normal);
 
-                    // console.log({ normal, max: Math.max(...normal) })
+                    const prettyName = stat.replace(/_/g, " ");
+                    const imgSrc = itemsByName[prettyName]?.icon;
+                    const icon = imgSrc && (
+                      <img src={`data:image/png;base64,${imgSrc}`} />
+                    );
 
                     return max !== 0 ? (
                       <tr key={stat}>
                         <th className="subheading">
                           {type.replace(/_/g, " ")}
                         </th>
-                        <th>{stat.replace(/_/g, " ")}</th>
+                        <th>
+                          <div className="stats-item">
+                            {icon}
+                            {stat.replace(/_/g, " ")}
+                          </div>
+                        </th>
                         {Object.keys(players).map((p, idx, arr) => {
                           const diff =
                             (stats[type][stat]

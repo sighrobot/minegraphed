@@ -4,13 +4,13 @@ import AsciiTable from "ascii-table";
 // Your public key can be found on your application in the Developer Portal
 const PUBLIC_KEY = process.env.DORMIN;
 
-const { PLAYER_IDS, LATEST } = require("../../lib/constants");
+const { PLAYER_IDS, SESSIONS } = require("../../lib/constants");
 
 const latest = {};
 
-latest.caleb = require(`../../stats/${LATEST}/${PLAYER_IDS.caleb}.json`);
-latest.jesse = require(`../../stats/${LATEST}/${PLAYER_IDS.jesse}.json`);
-latest.abe = require(`../../stats/${LATEST}/${PLAYER_IDS.abe}.json`);
+latest.caleb = require(`../../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
+latest.jesse = require(`../../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
+latest.abe = require(`../../stats/${SESSIONS[0]}/${PLAYER_IDS.abe}.json`);
 
 const clean = (player, stats) => {
   const cleaned = {};
