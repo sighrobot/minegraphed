@@ -19,7 +19,7 @@ const Style = () => {
             }
 
             table {
-              font-size: 16px;
+              font-size: 14px;
                 width: 100%;
                 border-collapse: collapse;
             }
@@ -30,6 +30,11 @@ const Style = () => {
 
             th, td {
                 padding: 10px;
+            }
+
+            td:first-child img {
+              height: 20px;
+              width: 20px;
             }
 
             td {
