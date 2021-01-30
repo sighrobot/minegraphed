@@ -1,4 +1,5 @@
 import React from "react";
+import Seg from "./seg";
 import Table from "./table";
 const { formatCm, formatTime } = require("../lib/format");
 const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
@@ -98,16 +99,27 @@ const Stats = ({ date }) => {
   const { stats, oldStats, players } = buildStats(date);
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
+  const [type, setType] = React.useState("broken");
+  const handleSelectStatType = (e) => setType(e.target.name);
 
   return (
     <div>
-      <input
-        value={value}
-        placeholder="Search stats by name or type..."
-        onChange={handleChange}
-      />
+      <div className="sticky">
+        <input
+          value={value}
+          placeholder="Search stats by name or type..."
+          onChange={handleChange}
+        />
+
+        <Seg
+          type={type}
+          statTypes={statTypes}
+          onChange={handleSelectStatType}
+        />
+      </div>
 
       <Table
+        type={type}
         stats={stats}
         statTypes={statTypes}
         oldStats={oldStats}

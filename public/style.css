@@ -96,3 +96,39 @@ summary h3 {
 .stats-item img {
   transform: none;
 }
+
+.seg {
+  overflow-x: auto;
+  width: 100%;
+  display: flex;
+}
+
+.seg button {
+  font-size: 16px;
+  font-family: inherit;
+  background: none;
+  padding: 15px 15px;
+  border: none;
+  cursor: pointer;
+  outline: 0;
+  white-space: nowrap;
+}
+
+.seg button.active {
+  background: rgba(255, 255, 0, 0.5);
+}
+
+.seg button:hover {
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.seg button + button {
+  border-left: 1px solid black;
+}
+
+.sticky {
+  background: white;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid black;
+}

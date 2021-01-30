@@ -1,6 +1,7 @@
 import React from "react";
 const { formatCm, formatTime } = require("../lib/format");
 import Container from "../components/container";
+import Seg from "../components/seg";
 import Table from "../components/table";
 const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
 const itemsByName = require("../lib/itemsByName.json");
@@ -54,6 +55,8 @@ const Stats = () => {
   const [value, setValue] = React.useState("");
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
+  const [type, setType] = React.useState("broken");
+  const handleSelectStatType = (e) => setType(e.target.name);
 
   return (
     <Container isPadded={false}>
@@ -61,13 +64,22 @@ const Stats = () => {
         <h2>All-time</h2>
       </div>
 
-      <input
-        value={value}
-        placeholder="Search stats by name or type..."
-        onChange={handleChange}
-      />
+      <div className="sticky">
+        <input
+          value={value}
+          placeholder="Search stats by name or type..."
+          onChange={handleChange}
+        />
+
+        <Seg
+          type={type}
+          statTypes={statTypes}
+          onChange={handleSelectStatType}
+        />
+      </div>
 
       <Table
+        type={type}
         players={players}
         statTypes={statTypes}
         stats={stats}
