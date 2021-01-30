@@ -2,7 +2,7 @@ import Link from "next/link";
 import Sessions from "../components/sessions";
 import { useRouter } from "next/router";
 
-const Container = ({ children }) => {
+const Container = ({ children, isPadded = true }) => {
   const router = useRouter();
   return (
     <main>
@@ -19,7 +19,9 @@ const Container = ({ children }) => {
         | <Sessions />
       </header>
 
-      {children}
+      <section style={{ padding: isPadded ? "0 20px" : "" }}>
+        {children}
+      </section>
     </main>
   );
 };

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: minecraft;
+  src: url("./minecraft.otf") format("opentype");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,15 +12,18 @@
 }
 
 body {
-  font-family: "Courier New", Courier, monospace;
+  font-family: minecraft, "Courier New", Courier, monospace;
   margin: 0;
   font-size: 16px;
 }
 
 main {
-  padding: 10px;
   margin: 0 auto;
   max-width: 800px;
+}
+
+main header {
+  padding: 20px;
 }
 
 .sessions {
@@ -68,7 +76,7 @@ summary h3 {
   height: 18px;
   width: 18px;
   transform: translateY(4px);
-  margin-right: 4px;
+  margin-right: 5px;
 }
 
 .new-stats li a:first-child {
@@ -87,4 +95,40 @@ summary h3 {
 
 .stats-item img {
   transform: none;
+}
+
+.seg {
+  overflow-x: auto;
+  width: 100%;
+  display: flex;
+}
+
+.seg button {
+  font-size: 16px;
+  font-family: inherit;
+  background: none;
+  padding: 15px 15px;
+  border: none;
+  cursor: pointer;
+  outline: 0;
+  white-space: nowrap;
+}
+
+.seg button.active {
+  background: rgba(255, 255, 0, 0.5);
+}
+
+.seg button:hover {
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.seg button + button {
+  border-left: 1px solid black;
+}
+
+.sticky {
+  background: white;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid black;
 }
