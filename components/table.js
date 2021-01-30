@@ -32,6 +32,15 @@ const Style = () => {
                 padding: 10px;
             }
 
+            td:first-child {
+              padding: 0;
+              padding-left: 5px;
+            }
+
+            td + th {
+              padding-left: 5px;
+            }
+
             td:first-child img {
               height: 20px;
               width: 20px;
