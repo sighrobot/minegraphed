@@ -94,42 +94,20 @@ const buildStats = (date) => {
   return { stats, oldStats, players };
 };
 
-const Stats = ({ date }) => {
-  const [value, setValue] = React.useState("");
+const StatsDiff = ({ date, value, type }) => {
   const { stats, oldStats, players } = buildStats(date);
   const statTypes = Object.keys(stats);
-  const handleChange = (e) => setValue(e.target.value);
-  const [type, setType] = React.useState("all");
-  const handleSelectStatType = (e) => setType(e.target.name);
 
   return (
-    <div>
-      <div className="sticky">
-        <input
-          type="search"
-          value={value}
-          placeholder="Search stats"
-          onChange={handleChange}
-        />
-
-        <Seg
-          stats={stats}
-          type={type}
-          statTypes={statTypes}
-          onChange={handleSelectStatType}
-        />
-      </div>
-
-      <Table
-        type={type}
-        stats={stats}
-        statTypes={statTypes}
-        oldStats={oldStats}
-        players={players}
-        value={value}
-      />
-    </div>
+    <Table
+      type={type}
+      stats={stats}
+      statTypes={statTypes}
+      oldStats={oldStats}
+      players={players}
+      value={value}
+    />
   );
 };
 
-export default Stats;
+export default StatsDiff;

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Sessions from "../components/sessions";
 import { useRouter } from "next/router";
 
 const Container = ({ children, isPadded = true }) => {
@@ -15,10 +14,9 @@ const Container = ({ children, isPadded = true }) => {
         |{" "}
         <Link href="/stats">
           <a className={router.pathname === "/stats" ? "active" : ""}>
-            All-time
+            Game Stats
           </a>
-        </Link>{" "}
-        | <Sessions />
+        </Link>
       </header>
 
       <section style={{ padding: isPadded ? "0 10px" : "0" }}>
