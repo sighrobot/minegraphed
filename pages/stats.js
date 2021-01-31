@@ -1,10 +1,11 @@
 import React from "react";
-const { formatCm, formatTime } = require("../lib/format");
 import Container from "../components/container";
 import Seg from "../components/seg";
+import DateFilter from "../components/date-filter";
+
 import Table from "../components/table";
+import StatsDiff from "../components/statsdiff";
 const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
-const itemsByName = require("../lib/itemsByName.json");
 
 const jesse = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
 const caleb = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
@@ -57,35 +58,40 @@ const Stats = () => {
   const handleChange = (e) => setValue(e.target.value);
   const [type, setType] = React.useState("all");
   const handleSelectStatType = (e) => setType(e.target.name);
+  const [date, setDate] = React.useState("all");
 
   return (
     <Container isPadded={false}>
-      <div style={{ padding: "0 20px" }}>
-        <h2>All-time</h2>
-      </div>
-
       <div className="sticky">
-        <input
-          type="search"
-          value={value}
-          placeholder="Search stats by name or type..."
-          onChange={handleChange}
-        />
+        <div className="inputs">
+          <DateFilter date={date} onChange={setDate} />
 
+          <input
+            type="search"
+            value={value}
+            placeholder="Search stats"
+            onChange={handleChange}
+          />
+        </div>
         <Seg
+          stats={stats}
           type={type}
           statTypes={statTypes}
           onChange={handleSelectStatType}
         />
       </div>
 
-      <Table
-        type={type}
-        players={players}
-        statTypes={statTypes}
-        stats={stats}
-        value={value}
-      />
+      {date === "all" ? (
+        <Table
+          type={type}
+          players={players}
+          statTypes={statTypes}
+          stats={stats}
+          value={value}
+        />
+      ) : (
+        <StatsDiff value={value} date={date} type={type} />
+      )}
     </Container>
   );
 };

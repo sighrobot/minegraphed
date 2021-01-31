@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Sessions from "../components/sessions";
 import { useRouter } from "next/router";
 
 const Container = ({ children, isPadded = true }) => {
@@ -8,18 +7,19 @@ const Container = ({ children, isPadded = true }) => {
     <main>
       <header>
         <Link href="/">
-          <a className={router.pathname === "/" ? "active" : ""}>Home</a>
+          <a className={router.pathname === "/" ? "active" : ""}>
+            Adventure Log
+          </a>
         </Link>{" "}
         |{" "}
         <Link href="/stats">
           <a className={router.pathname === "/stats" ? "active" : ""}>
-            All-time
+            Game Stats
           </a>
-        </Link>{" "}
-        | <Sessions />
+        </Link>
       </header>
 
-      <section style={{ padding: isPadded ? "0 20px" : "" }}>
+      <section style={{ padding: isPadded ? "0 10px" : "0" }}>
         {children}
       </section>
     </main>

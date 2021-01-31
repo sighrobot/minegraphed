@@ -23,7 +23,10 @@ main {
 }
 
 main header {
-  padding: 20px;
+  padding: 0 10px;
+  line-height: 74px;
+  height: 74px;
+  border-bottom: 1px solid gray;
 }
 
 .sessions {
@@ -33,18 +36,22 @@ main header {
 }
 
 .sessions a {
+  color: gray;
   margin-right: 10px;
 }
 
 summary {
   cursor: pointer;
-  color: blue;
   text-decoration: underline;
   display: inline;
 }
 
+a {
+  color: gray;
+}
+
 a.active {
-  font-weight: bold;
+  color: black;
 }
 
 summary h3 {
@@ -84,6 +91,7 @@ summary h3 {
 }
 
 .new-stats li a {
+  color: black;
   font-size: initial;
   font-style: initial;
 }
@@ -104,31 +112,88 @@ summary h3 {
 }
 
 .seg button {
-  font-size: 16px;
+  font-size: 14px;
   font-family: inherit;
   background: none;
-  padding: 15px 15px;
+  padding: 0 15px;
   border: none;
   cursor: pointer;
   outline: 0;
   white-space: nowrap;
+  height: 37px;
 }
 
-.seg button.active {
-  background: rgba(255, 255, 0, 0.5);
-}
-
-.seg button:hover {
+.seg button {
   background: rgba(255, 255, 0, 0.1);
 }
 
+.seg button.active,
+.seg button:focus,
+.seg button:active {
+  background: rgba(255, 255, 0, 0.5);
+}
+
 .seg button + button {
-  border-left: 1px solid black;
+  border-left: 1px solid gray;
 }
 
 .sticky {
   background: white;
   position: sticky;
   top: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid gray;
+}
+
+.inputs input[type="search"] {
+  border-radius: 0;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0 10px;
+  height: 37px;
+  font-family: inherit;
+  border: none;
+  outline: 0;
+  font-size: 17px;
+  width: 100%;
+  border-left: 1px solid gray;
+}
+
+.log-entry {
+  padding: 30px 10px;
+}
+
+.log-entry h3 {
+  font-size: 20px;
+}
+
+.log-entry > * > * > img {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+}
+
+.log-entry li {
+  min-height: 24px;
+  margin: 0;
+  line-height: 24px;
+}
+
+.log-entry + .log-entry {
+  border-top: 1px solid gray;
+}
+
+.date-filter select {
+  outline: 0;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 0 10px;
+  border: none;
+  font-family: inherit;
+  height: 37px;
+}
+
+.inputs {
+  display: flex;
+  border-bottom: 1px solid gray;
 }

@@ -24,8 +24,6 @@ const NewStats = ({ date }) => {
 
   return (
     <div className="new-stats">
-      <h3>What's new?</h3>
-
       <p>
         {sortedByItem.map((i) => {
           const prettyName = i.replace(/_/g, " ");

@@ -6,18 +6,6 @@ const { formatCm, formatTime } = require("../lib/format");
 const Style = () => {
   return (
     <style>{`
-            input {
-              margin-top: 30px;
-                width: 100%;
-                padding: 20px 10px;
-                font-family: inherit;
-                border: none;
-                outline: 0;
-                font-size: 16px;
-                border: 1px solid black;
-                width: 100%;
-            }
-
             table {
               font-size: 14px;
                 width: 100%;
@@ -102,9 +90,11 @@ export const Table = ({
         {statTypes
           .filter((t) => typeFilter === t || typeFilter === "all")
           .map((type) => {
+            const statTypeKeys = Object.keys(stats[type]);
+
             return (
               <>
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .length > 0 ? (
@@ -117,7 +107,7 @@ export const Table = ({
                     })}
                   </tr>
                 ) : null}
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .map((stat) => {
@@ -157,13 +147,13 @@ export const Table = ({
                               {stat.indexOf("one_cm") !== -1
                                 ? diff
                                   ? formatCm(diff)
-                                  : "-"
+                                  : ""
                                 : stat.indexOf("time") !== -1 ||
                                   stat.indexOf("minute") !== -1
                                 ? formatTime(diff)
                                 : diff
                                 ? diff.toLocaleString()
-                                : "-"}
+                                : ""}
                             </td>
                           );
                         })}
@@ -181,9 +171,11 @@ export const Table = ({
         {statTypes
           .filter((t) => typeFilter === t || typeFilter === "all")
           .map((type) => {
+            const statTypeKeys = Object.keys(stats[type]);
+
             return (
               <>
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .length > 0 ? (
@@ -196,7 +188,7 @@ export const Table = ({
                     })}
                   </tr>
                 ) : null}
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .map((stat) => {
@@ -231,7 +223,7 @@ export const Table = ({
                                 ? formatTime(stats[type][stat][p])
                                 : stats[type][stat][p]
                                 ? stats[type][stat][p].toLocaleString()
-                                : "-"}
+                                : ""}
                             </td>
                           );
                         })}
