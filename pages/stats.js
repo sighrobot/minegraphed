@@ -5,54 +5,11 @@ import DateFilter from "../components/date-filter";
 
 import Table from "../components/table";
 import StatsDiff from "../components/statsdiff";
-const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
-
-const jesse = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
-const caleb = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
-const abe = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.abe}.json`);
-
-const players = {
-  caleb,
-  jesse,
-  abe,
-};
-
-const stats = {};
-
-const playerKeys = Object.keys(players);
-
-playerKeys.forEach((player) => {
-  const statTypes = players[player].stats;
-  const statTypeKeys = Object.keys(statTypes);
-
-  statTypeKeys
-    .sort((a, b) => (a > b ? 1 : -1))
-    .forEach((statTypeKey) => {
-      const simpleStatTypeKey = statTypeKey.split("minecraft:")[1];
-
-      const playerStats = statTypes[statTypeKey];
-      const statKeys = Object.keys(playerStats);
-
-      if (!stats[simpleStatTypeKey]) {
-        stats[simpleStatTypeKey] = {};
-      }
-
-      statKeys.forEach((statKey) => {
-        const simpleStatKey = statKey.split("minecraft:")[1];
-
-        if (stats[simpleStatTypeKey][simpleStatKey]) {
-          stats[simpleStatTypeKey][simpleStatKey][player] =
-            playerStats[statKey];
-        } else {
-          stats[simpleStatTypeKey][simpleStatKey] = {
-            [player]: playerStats[statKey],
-          };
-        }
-      });
-    });
-});
+import { buildStats } from "../lib/build-stats";
+const { SESSIONS } = require("../lib/constants");
 
 const Stats = () => {
+  const { stats, players } = buildStats(SESSIONS[0]);
   const [value, setValue] = React.useState("");
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
