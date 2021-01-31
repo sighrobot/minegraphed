@@ -6,18 +6,6 @@ const { formatCm, formatTime } = require("../lib/format");
 const Style = () => {
   return (
     <style>{`
-            input {
-              margin-top: 30px;
-                width: 100%;
-                padding: 20px 10px;
-                font-family: inherit;
-                border: none;
-                outline: 0;
-                font-size: 16px;
-                border: 1px solid black;
-                width: 100%;
-            }
-
             table {
               font-size: 14px;
                 width: 100%;

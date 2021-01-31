@@ -104,22 +104,25 @@ summary h3 {
 }
 
 .seg button {
-  font-size: 16px;
+  font-size: 14px;
   font-family: inherit;
   background: none;
-  padding: 15px 15px;
+  padding: 0 15px;
   border: none;
   cursor: pointer;
   outline: 0;
   white-space: nowrap;
-}
-
-.seg button.active {
-  background: rgba(255, 255, 0, 0.5);
+  height: 37px;
 }
 
 .seg button:hover {
   background: rgba(255, 255, 0, 0.1);
+}
+
+.seg button.active,
+.seg button:focus,
+.seg button:active {
+  background: rgba(255, 255, 0, 0.5);
 }
 
 .seg button + button {
@@ -131,4 +134,18 @@ summary h3 {
   position: sticky;
   top: 0;
   border-bottom: 1px solid black;
+}
+
+input[type="search"] {
+  border-radius: 0;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0 10px;
+  height: 37px;
+  font-family: inherit;
+  border: none;
+  outline: 0;
+  font-size: 17px;
+  border-bottom: 1px solid black;
+  width: 100%;
 }

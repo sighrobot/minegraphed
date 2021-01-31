@@ -108,7 +108,7 @@ const Stats = ({ date }) => {
         <input
           type="search"
           value={value}
-          placeholder="Search stats by name or type..."
+          placeholder="Search stats"
           onChange={handleChange}
         />
 
