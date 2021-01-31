@@ -88,12 +88,19 @@ const Style = () => {
   );
 };
 
-export const Table = ({ type, players, stats, statTypes, oldStats, value }) => {
+export const Table = ({
+  type: typeFilter,
+  players,
+  stats,
+  statTypes,
+  oldStats,
+  value,
+}) => {
   const table = oldStats ? (
     <table className="table">
       <tbody>
         {statTypes
-          .filter((t) => type === t)
+          .filter((t) => typeFilter === t || typeFilter === "all")
           .map((type) => {
             return (
               <>
@@ -102,7 +109,9 @@ export const Table = ({ type, players, stats, statTypes, oldStats, value }) => {
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .length > 0 ? (
                   <tr className="heading">
-                    <th colSpan={2}>Stat</th>
+                    <th colSpan={2}>
+                      {typeFilter === "all" ? type.replace("_", " ") : ""}
+                    </th>
                     {Object.keys(players).map((p) => {
                       return <th key={p}>{p}</th>;
                     })}
@@ -170,7 +179,7 @@ export const Table = ({ type, players, stats, statTypes, oldStats, value }) => {
     <table className="table">
       <tbody>
         {statTypes
-          .filter((t) => type === t)
+          .filter((t) => typeFilter === t || typeFilter === "all")
           .map((type) => {
             return (
               <>
@@ -179,7 +188,9 @@ export const Table = ({ type, players, stats, statTypes, oldStats, value }) => {
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .length > 0 ? (
                   <tr className="heading">
-                    <th colSpan={2}>Stat</th>
+                    <th colSpan={2}>
+                      {typeFilter === "all" ? type.replace("_", " ") : ""}
+                    </th>
                     {Object.keys(players).map((p) => {
                       return <th key={p}>{p}</th>;
                     })}

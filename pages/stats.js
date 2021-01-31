@@ -55,7 +55,7 @@ const Stats = () => {
   const [value, setValue] = React.useState("");
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
-  const [type, setType] = React.useState("broken");
+  const [type, setType] = React.useState("all");
   const handleSelectStatType = (e) => setType(e.target.name);
 
   return (

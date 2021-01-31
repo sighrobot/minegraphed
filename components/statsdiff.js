@@ -99,7 +99,7 @@ const Stats = ({ date }) => {
   const { stats, oldStats, players } = buildStats(date);
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
-  const [type, setType] = React.useState("broken");
+  const [type, setType] = React.useState("all");
   const handleSelectStatType = (e) => setType(e.target.name);
 
   return (
