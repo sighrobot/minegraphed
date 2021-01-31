@@ -147,13 +147,13 @@ export const Table = ({
                               {stat.indexOf("one_cm") !== -1
                                 ? diff
                                   ? formatCm(diff)
-                                  : "-"
+                                  : ""
                                 : stat.indexOf("time") !== -1 ||
                                   stat.indexOf("minute") !== -1
                                 ? formatTime(diff)
                                 : diff
                                 ? diff.toLocaleString()
-                                : "-"}
+                                : ""}
                             </td>
                           );
                         })}
@@ -223,7 +223,7 @@ export const Table = ({
                                 ? formatTime(stats[type][stat][p])
                                 : stats[type][stat][p]
                                 ? stats[type][stat][p].toLocaleString()
-                                : "-"}
+                                : ""}
                             </td>
                           );
                         })}

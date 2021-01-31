@@ -23,7 +23,10 @@ main {
 }
 
 main header {
-  padding: 20px 10px;
+  padding: 0 10px;
+  line-height: 74px;
+  height: 74px;
+  border-bottom: 1px solid gray;
 }
 
 .sessions {
@@ -131,14 +134,14 @@ summary h3 {
 }
 
 .seg button + button {
-  border-left: 1px solid black;
+  border-left: 1px solid gray;
 }
 
 .sticky {
   background: white;
   position: sticky;
   top: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid gray;
 }
 
 .inputs input[type="search"] {
@@ -192,6 +195,5 @@ summary h3 {
 
 .inputs {
   display: flex;
-  border-top: 1px solid gray;
   border-bottom: 1px solid gray;
 }
