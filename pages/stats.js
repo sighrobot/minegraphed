@@ -66,6 +66,7 @@ const Stats = () => {
 
       <div className="sticky">
         <input
+          type="search"
           value={value}
           placeholder="Search stats by name or type..."
           onChange={handleChange}
