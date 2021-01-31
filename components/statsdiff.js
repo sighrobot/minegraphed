@@ -99,13 +99,14 @@ const Stats = ({ date }) => {
   const { stats, oldStats, players } = buildStats(date);
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
-  const [type, setType] = React.useState("broken");
+  const [type, setType] = React.useState("all");
   const handleSelectStatType = (e) => setType(e.target.name);
 
   return (
     <div>
       <div className="sticky">
         <input
+          type="search"
           value={value}
           placeholder="Search stats by name or type..."
           onChange={handleChange}
