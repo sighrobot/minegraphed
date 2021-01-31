@@ -8,7 +8,9 @@ const Container = ({ children, isPadded = true }) => {
     <main>
       <header>
         <Link href="/">
-          <a className={router.pathname === "/" ? "active" : ""}>Home</a>
+          <a className={router.pathname === "/" ? "active" : ""}>
+            Adventure Log
+          </a>
         </Link>{" "}
         |{" "}
         <Link href="/stats">
@@ -19,7 +21,7 @@ const Container = ({ children, isPadded = true }) => {
         | <Sessions />
       </header>
 
-      <section style={{ padding: isPadded ? "0 20px" : "" }}>
+      <section style={{ padding: isPadded ? "0 10px" : "0" }}>
         {children}
       </section>
     </main>

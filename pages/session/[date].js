@@ -11,14 +11,8 @@ const Session = () => {
   } = useRouter();
 
   if (date) {
-    const dateString = new Date(`${date}T12:00:00-05:00`).toDateString();
     return (
       <Container isPadded={false}>
-        <div style={{ padding: "0 20px" }}>
-          <h2>{dateString}</h2>
-          {date && <NewStats date={date} />}
-        </div>
-
         <Stats date={date} />
       </Container>
     );

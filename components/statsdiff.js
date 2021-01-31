@@ -113,6 +113,7 @@ const Stats = ({ date }) => {
         />
 
         <Seg
+          stats={stats}
           type={type}
           statTypes={statTypes}
           onChange={handleSelectStatType}

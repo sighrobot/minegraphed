@@ -90,9 +90,11 @@ export const Table = ({
         {statTypes
           .filter((t) => typeFilter === t || typeFilter === "all")
           .map((type) => {
+            const statTypeKeys = Object.keys(stats[type]);
+
             return (
               <>
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .length > 0 ? (
@@ -105,7 +107,7 @@ export const Table = ({
                     })}
                   </tr>
                 ) : null}
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .map((stat) => {
@@ -169,9 +171,11 @@ export const Table = ({
         {statTypes
           .filter((t) => typeFilter === t || typeFilter === "all")
           .map((type) => {
+            const statTypeKeys = Object.keys(stats[type]);
+
             return (
               <>
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .length > 0 ? (
@@ -184,7 +188,7 @@ export const Table = ({
                     })}
                   </tr>
                 ) : null}
-                {Object.keys(stats[type])
+                {statTypeKeys
                   .sort((a, b) => (a > b ? 1 : -1))
                   .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
                   .map((stat) => {

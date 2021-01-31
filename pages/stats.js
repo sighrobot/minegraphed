@@ -60,10 +60,6 @@ const Stats = () => {
 
   return (
     <Container isPadded={false}>
-      <div style={{ padding: "0 20px" }}>
-        <h2>All-time</h2>
-      </div>
-
       <div className="sticky">
         <input
           type="search"
@@ -73,6 +69,7 @@ const Stats = () => {
         />
 
         <Seg
+          stats={stats}
           type={type}
           statTypes={statTypes}
           onChange={handleSelectStatType}

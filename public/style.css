@@ -23,7 +23,7 @@ main {
 }
 
 main header {
-  padding: 20px;
+  padding: 20px 10px;
 }
 
 .sessions {
@@ -33,18 +33,22 @@ main header {
 }
 
 .sessions a {
+  color: gray;
   margin-right: 10px;
 }
 
 summary {
   cursor: pointer;
-  color: blue;
   text-decoration: underline;
   display: inline;
 }
 
+a {
+  color: gray;
+}
+
 a.active {
-  font-weight: bold;
+  color: black;
 }
 
 summary h3 {
@@ -84,6 +88,7 @@ summary h3 {
 }
 
 .new-stats li a {
+  color: black;
   font-size: initial;
   font-style: initial;
 }
@@ -115,7 +120,7 @@ summary h3 {
   height: 37px;
 }
 
-.seg button:hover {
+.seg button {
   background: rgba(255, 255, 0, 0.1);
 }
 
@@ -147,5 +152,30 @@ input[type="search"] {
   outline: 0;
   font-size: 17px;
   border-bottom: 1px solid black;
+  border-top: 1px solid black;
   width: 100%;
+}
+
+.log-entry {
+  padding: 40px 10px;
+}
+
+.log-entry h3 {
+  font-size: 20px;
+}
+
+.log-entry > * > * > img {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+}
+
+.log-entry li {
+  min-height: 24px;
+  margin: 0;
+  line-height: 24px;
+}
+
+.log-entry + .log-entry {
+  border-top: 1px solid gray;
 }
