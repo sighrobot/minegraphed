@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../components/container";
 import NewStats from "../components/new-stats";
 import { SESSIONS } from "../lib/constants";
+import Link from "next/link";
 
 const Adventure = () => {
   return (
@@ -12,8 +13,12 @@ const Adventure = () => {
         const dateString = new Date(`${date}T12:00:00-05:00`).toDateString();
 
         return (
-          <article className="log-entry">
+          <article key={date} className="log-entry">
             <h3>{dateString}</h3>
+
+            <Link href={`/stats?date=${date}`}>
+              <a>Stats</a>
+            </Link>
 
             {date && <NewStats date={date} />}
           </article>

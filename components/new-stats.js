@@ -45,7 +45,7 @@ const NewStats = ({ date }) => {
             return (
               <li key={i}>
                 {imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />}
-                <Link href={`/stat/${i}`}>
+                <Link href={`/stats?stat=${i}&date=${date}`}>
                   <a>{prettyName}</a>
                 </Link>{" "}
                 {byItem[i]

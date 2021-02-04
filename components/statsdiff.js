@@ -2,7 +2,7 @@ import React from "react";
 import { buildStats } from "../lib/build-stats";
 import Table from "./table";
 
-const StatsDiff = ({ date, value, type }) => {
+const StatsDiff = ({ date, value, type, currStat }) => {
   const { stats, oldStats, players } = buildStats(date);
   const statTypes = Object.keys(stats);
 
@@ -14,6 +14,7 @@ const StatsDiff = ({ date, value, type }) => {
       oldStats={oldStats}
       players={players}
       value={value}
+      currStat={currStat}
     />
   );
 };
