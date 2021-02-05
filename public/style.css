@@ -1,6 +1,6 @@
 @font-face {
   font-family: minecraft;
-  src: url("./minecraft.otf") format("opentype");
+  src: url('./minecraft.otf') format('opentype');
 }
 
 * {
@@ -12,7 +12,7 @@
 }
 
 body {
-  font-family: minecraft, "Courier New", Courier, monospace;
+  font-family: minecraft, 'Courier New', Courier, monospace;
   margin: 0;
   font-size: 16px;
 }
@@ -155,7 +155,7 @@ summary h3 {
   border-bottom: 1px solid gray;
 }
 
-.inputs input[type="search"] {
+.sticky input[type='search'] {
   border-radius: 0;
   -webkit-appearance: none;
   width: 100%;
@@ -166,7 +166,36 @@ summary h3 {
   outline: 0;
   font-size: 17px;
   width: 100%;
-  border-left: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.sticky .stat-token {
+  background: rgba(0, 0, 255, 0.1);
+  margin-left: 20px;
+  border: none;
+  padding: 0 10px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.sticky .stat-token div:after {
+  content: ' \2715';
+  font-size: 10px;
+  position: absolute;
+  right: 0;
+}
+
+.sticky .stat-token div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.sticky .stat-token img {
+  height: 16px;
+  width: 16px;
+  margin-right: 5px;
 }
 
 .log-entry {

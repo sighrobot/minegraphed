@@ -1,29 +1,30 @@
-import React from "react";
-import Container from "../components/container";
-import Seg from "../components/seg";
-import DateFilter from "../components/date-filter";
-import { useRouter } from "next/router";
+import React from 'react';
+import Container from '../components/container';
+import Seg from '../components/seg';
+import DateFilter from '../components/date-filter';
+import { useRouter } from 'next/router';
 
-import Table from "../components/table";
-import StatsDiff from "../components/statsdiff";
-import { buildStats } from "../lib/build-stats";
-const { SESSIONS } = require("../lib/constants");
+import Table from '../components/table';
+import StatsDiff from '../components/statsdiff';
+import { buildStats } from '../lib/build-stats';
+import { getImgSrc } from '../lib/items';
+const { SESSIONS } = require('../lib/constants');
 
 const Stats = () => {
   const router = useRouter();
   const { stats, players } = buildStats(SESSIONS[0]);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
-  const [type, setType] = React.useState("all");
+  const [type, setType] = React.useState('all');
   const handleSelectStatType = (e) => setType(e.target.name);
-  const [date, setDate] = React.useState(router.query.date ?? "all");
-  const [stat, setStat] = React.useState(router.query.stat ?? "");
+  const [date, setDate] = React.useState(router.query.date ?? 'all');
+  const [stat, setStat] = React.useState(router.query.stat ?? '');
 
   React.useEffect(() => {
-    let path = "/stats?";
+    let path = '/stats?';
 
-    if (date !== "all") {
+    if (date !== 'all') {
       path += `&date=${date}`;
     }
 
@@ -44,19 +45,37 @@ const Stats = () => {
     }
   }, [router.query.date, router.query.stat]);
 
+  const prettyStat = stat.replace(/_/g, ' ');
+
+  const handleRemoveStat = () => {
+    setStat('');
+  };
+
+  const imgSrc = getImgSrc(prettyStat);
+
   return (
     <Container isPadded={false}>
       <div className="sticky">
+        <input
+          type="search"
+          value={value}
+          placeholder="Search stats"
+          onChange={handleChange}
+        />
+
         <div className="inputs">
           <DateFilter date={date} onChange={setDate} />
 
-          <input
-            type="search"
-            value={value}
-            placeholder="Search stats"
-            onChange={handleChange}
-          />
+          {stat && (
+            <button className="stat-token" onClick={handleRemoveStat}>
+              <div>
+                {imgSrc && <img src={imgSrc} />}
+                {prettyStat}
+              </div>
+            </button>
+          )}
         </div>
+
         <Seg
           stats={stats}
           type={type}
@@ -65,7 +84,7 @@ const Stats = () => {
         />
       </div>
 
-      {date === "all" ? (
+      {date === 'all' ? (
         <Table
           type={type}
           players={players}
