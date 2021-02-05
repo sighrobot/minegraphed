@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { pretty } from 'lib/format';
 import { getNewStats } from 'lib/getNewStats';
-
-const itemsByName = require('lib/itemsByName.json');
+import { getImgSrc } from 'lib/items';
 
 const NewStats = ({ date }) => {
   const newStats = React.useMemo(() => getNewStats(date), [date]);
@@ -28,11 +27,9 @@ const NewStats = ({ date }) => {
       <p>
         {sortedByItem.map((i) => {
           const prettyName = pretty(i);
-          const imgSrc = itemsByName[prettyName]?.icon;
+          const imgSrc = getImgSrc(prettyName);
 
-          return (
-            imgSrc && <img key={i} src={`data:image/png;base64,${imgSrc}`} />
-          );
+          return imgSrc && <img key={i} src={imgSrc} />;
         })}
       </p>
 
@@ -41,11 +38,11 @@ const NewStats = ({ date }) => {
         <ul>
           {sortedByItem.map((i) => {
             const prettyName = pretty(i);
-            const imgSrc = itemsByName[prettyName]?.icon;
+            const imgSrc = getImgSrc(prettyName);
 
             return (
               <li key={i}>
-                {imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />}
+                {imgSrc && <img src={imgSrc} />}
                 <Link href={`/stats?stat=${i}&date=${date}`}>
                   <a>{prettyName}</a>
                 </Link>{' '}

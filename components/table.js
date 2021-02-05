@@ -1,7 +1,7 @@
+import { getImgSrc } from 'lib/items';
 import Link from 'next/link';
 import React from 'react';
 
-const itemsByName = require('lib/itemsByName.json');
 const { formatCm, formatTime, pretty } = require('lib/format');
 
 const Style = () => {
@@ -101,8 +101,8 @@ const statsFunc = (stat, players, stats, type) => {
   const max = Math.max(...normal);
 
   const prettyName = pretty(stat);
-  const imgSrc = itemsByName[prettyName]?.icon;
-  const icon = imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />;
+  const imgSrc = getImgSrc(prettyName);
+  const icon = imgSrc && <img src={imgSrc} />;
 
   return (
     <tr key={stat}>
@@ -139,8 +139,8 @@ const oldStatsFunc = (stat, players, stats, oldStats, type) => {
   const max = Math.max(...normal);
 
   const prettyName = pretty(stat);
-  const imgSrc = itemsByName[prettyName]?.icon;
-  const icon = imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />;
+  const imgSrc = getImgSrc(prettyName);
+  const icon = imgSrc && <img src={imgSrc} />;
 
   return max !== 0 ? (
     <tr key={stat}>
