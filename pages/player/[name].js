@@ -5,7 +5,7 @@ import { SESSIONS } from 'lib/constants';
 import { buildStats } from 'lib/build-stats';
 import Link from 'next/link';
 import { getImgSrc } from 'lib/items';
-import { pretty } from 'lib/format';
+import { formatValue, pretty } from 'lib/format';
 
 const PersonalStat = ({ subtitle, title, statKey = '', value }) => {
   const split = statKey.split('.');
@@ -21,7 +21,7 @@ const PersonalStat = ({ subtitle, title, statKey = '', value }) => {
       <h3>{title}</h3>
       <h4>{subtitle}</h4>
       <p>
-        {prettyType} {value} {icon}{' '}
+        {prettyType} {formatValue(stat, value)} {icon}{' '}
         <Link href={`/stats?stat=${stat}`}>
           <a>{prettyStat}</a>
         </Link>

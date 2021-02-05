@@ -1,8 +1,8 @@
-import { getImgSrc } from 'lib/items';
 import Link from 'next/link';
 import React from 'react';
 
-const { formatCm, formatTime, pretty } = require('lib/format');
+import { getImgSrc } from 'lib/items';
+import { pretty, formatValue } from 'lib/format';
 
 const Style = () => {
   return (
@@ -116,13 +116,7 @@ const statsFunc = (stat, players, stats, type) => {
       {Object.keys(players).map((p, idx, arr) => {
         return (
           <td className={stats[type][stat][p] === max ? 'max' : ''} key={p}>
-            {stat.indexOf('one_cm') !== -1
-              ? formatCm(stats[type][stat][p])
-              : stat.indexOf('time') !== -1 || stat.indexOf('minute') !== -1
-              ? formatTime(stats[type][stat][p])
-              : stats[type][stat][p]
-              ? stats[type][stat][p].toLocaleString()
-              : ''}
+            {formatValue(stat, stats[type][stat][p])}
           </td>
         );
       })}
@@ -160,15 +154,7 @@ const oldStatsFunc = (stat, players, stats, oldStats, type) => {
         return (
           <td className={diff === max ? 'max' : ''} key={p}>
             {diff === 0 ? '' : diff > 0 ? '+' : '-'}
-            {stat.indexOf('one_cm') !== -1
-              ? diff
-                ? formatCm(diff)
-                : ''
-              : stat.indexOf('time') !== -1 || stat.indexOf('minute') !== -1
-              ? formatTime(diff)
-              : diff
-              ? diff.toLocaleString()
-              : ''}
+            {formatValue(stat, diff)}
           </td>
         );
       })}
