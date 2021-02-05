@@ -1,7 +1,7 @@
-import React from "react";
-import SessionLink from "../components/session-link";
+import React from 'react';
+import SessionLink from 'components/session-link';
 
-const { SESSIONS } = require("../lib/constants");
+const { SESSIONS } = require('lib/constants');
 
 const Sessions = () => {
   return (

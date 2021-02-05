@@ -1,11 +1,11 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import Container from '../../components/container';
-import { SESSIONS } from '../../lib/constants';
-import { buildStats } from '../../lib/build-stats';
+import Container from 'components/container';
+import { SESSIONS } from 'lib/constants';
+import { buildStats } from 'lib/build-stats';
 import Link from 'next/link';
-import { getImgSrc } from '../../lib/items';
-import { pretty } from '../../lib/format';
+import { getImgSrc } from 'lib/items';
+import { pretty } from 'lib/format';
 
 const PersonalStat = ({ subtitle, title, statKey = '', value }) => {
   const split = statKey.split('.');

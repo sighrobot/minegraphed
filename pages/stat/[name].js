@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import Container from '../../components/container';
-import { pretty } from '../../lib/format';
+import Container from 'components/container';
+import { pretty } from 'lib/format';
 
-const itemsByName = require('../../lib/itemsByName.json');
+const itemsByName = require('lib/itemsByName.json');
 
 const Session = () => {
   const {

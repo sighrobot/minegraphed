@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { pretty } from '../lib/format';
-import { getNewStats } from '../lib/getNewStats';
+import { pretty } from 'lib/format';
+import { getNewStats } from 'lib/getNewStats';
 
-const itemsByName = require('../lib/itemsByName.json');
+const itemsByName = require('lib/itemsByName.json');
 
 const NewStats = ({ date }) => {
   const newStats = React.useMemo(() => getNewStats(date), [date]);

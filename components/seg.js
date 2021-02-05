@@ -1,5 +1,5 @@
 import React from 'react';
-import { pretty } from '../lib/format';
+import { pretty } from 'lib/format';
 
 const Seg = ({ type, onChange, statTypes, stats }) => {
   return (

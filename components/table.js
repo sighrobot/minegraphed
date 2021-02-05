@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 
-const itemsByName = require('../lib/itemsByName.json');
-const { formatCm, formatTime, pretty } = require('../lib/format');
+const itemsByName = require('lib/itemsByName.json');
+const { formatCm, formatTime, pretty } = require('lib/format');
 
 const Style = () => {
   return (
