@@ -204,7 +204,11 @@ export const Table = ({
           const statTypeKeys = Object.keys(stats[type]);
           const filteredStatTypeKeys = statTypeKeys
             .sort((a, b) => (a > b ? 1 : -1))
-            .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
+            .filter(
+              (stat) =>
+                stat.indexOf(value.toLowerCase()) !== -1 ||
+                stat.replace(/_/g, ' ').indexOf(value.toLowerCase()) !== -1
+            )
             .filter((stat) => !currStat || currStat === stat);
 
           return (
