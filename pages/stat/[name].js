@@ -1,8 +1,9 @@
-import React from "react";
-import { useRouter } from "next/router";
-import Container from "../../components/container";
+import React from 'react';
+import { useRouter } from 'next/router';
+import Container from '../../components/container';
+import { pretty } from '../../lib/format';
 
-const itemsByName = require("../../lib/itemsByName.json");
+const itemsByName = require('../../lib/itemsByName.json');
 
 const Session = () => {
   const {
@@ -10,7 +11,7 @@ const Session = () => {
   } = useRouter();
 
   if (name) {
-    const prettyName = name.replace(/_/g, " ");
+    const prettyName = pretty(name);
     const imgSrc = itemsByName[prettyName]?.icon;
 
     const icon = imgSrc ? (

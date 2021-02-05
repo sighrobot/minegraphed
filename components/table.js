@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const itemsByName = require('../lib/itemsByName.json');
-const { formatCm, formatTime } = require('../lib/format');
+const { formatCm, formatTime, pretty } = require('../lib/format');
 
 const Style = () => {
   return (
@@ -100,7 +100,7 @@ const statsFunc = (stat, players, stats, type) => {
   const normal = Object.keys(players).map((p) => stats[type][stat][p] ?? 0);
   const max = Math.max(...normal);
 
-  const prettyName = stat.replace(/_/g, ' ');
+  const prettyName = pretty(stat);
   const imgSrc = itemsByName[prettyName]?.icon;
   const icon = imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />;
 
@@ -109,7 +109,7 @@ const statsFunc = (stat, players, stats, type) => {
       <td>{icon}</td>
       <th>
         <Link href={`/stats?stat=${stat}`}>
-          <a>{stat.replace(/_/g, ' ')}</a>
+          <a>{prettyName}</a>
         </Link>
       </th>
 
@@ -138,7 +138,7 @@ const oldStatsFunc = (stat, players, stats, oldStats, type) => {
   );
   const max = Math.max(...normal);
 
-  const prettyName = stat.replace(/_/g, ' ');
+  const prettyName = pretty(stat);
   const imgSrc = itemsByName[prettyName]?.icon;
   const icon = imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />;
 
@@ -148,7 +148,7 @@ const oldStatsFunc = (stat, players, stats, oldStats, type) => {
 
       <th>
         <Link href={`/stats?stat=${stat}`}>
-          <a>{stat.replace(/_/g, ' ')}</a>
+          <a>{prettyName}</a>
         </Link>
       </th>
 
@@ -207,7 +207,7 @@ export const Table = ({
             .filter(
               (stat) =>
                 stat.indexOf(value.toLowerCase()) !== -1 ||
-                stat.replace(/_/g, ' ').indexOf(value.toLowerCase()) !== -1
+                pretty(stat).indexOf(value.toLowerCase()) !== -1
             )
             .filter((stat) => !currStat || currStat === stat);
 
@@ -216,7 +216,7 @@ export const Table = ({
               {filteredStatTypeKeys.length > 0 ? (
                 <tr className="heading">
                   <th colSpan={2}>
-                    {typeFilter === 'all' ? type.replace('_', ' ') : ''}
+                    {typeFilter === 'all' ? pretty(type) : ''}
                   </th>
 
                   {playerNames}

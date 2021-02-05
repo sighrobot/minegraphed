@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
+import { pretty } from '../lib/format';
 
 const Seg = ({ type, onChange, statTypes, stats }) => {
   return (
     <div className="seg">
       <button
         name="all"
-        className={type === "all" ? "active" : ""}
+        className={type === 'all' ? 'active' : ''}
         onClick={onChange}
       >
         all
@@ -18,11 +19,11 @@ const Seg = ({ type, onChange, statTypes, stats }) => {
           return (
             <button
               key={t}
-              className={type === t ? "active" : ""}
+              className={type === t ? 'active' : ''}
               name={t}
               onClick={onChange}
             >
-              {t.replace("_", " ")}
+              {pretty(t)}
               {/* <sup>{num}</sup> */}
             </button>
           );

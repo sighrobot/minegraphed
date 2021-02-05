@@ -8,6 +8,7 @@ import Table from '../components/table';
 import StatsDiff from '../components/statsdiff';
 import { buildStats } from '../lib/build-stats';
 import { getImgSrc } from '../lib/items';
+import { pretty } from '../lib/format';
 const { SESSIONS } = require('../lib/constants');
 
 const Stats = () => {
@@ -45,7 +46,7 @@ const Stats = () => {
     }
   }, [router.query.date, router.query.stat]);
 
-  const prettyStat = stat.replace(/_/g, ' ');
+  const prettyStat = pretty(stat);
 
   const handleRemoveStat = () => {
     setStat('');
