@@ -1,7 +1,8 @@
-import React from "react";
+import Link from 'next/link';
+import React from 'react';
 
-const itemsByName = require("../lib/itemsByName.json");
-const { formatCm, formatTime } = require("../lib/format");
+const itemsByName = require('../lib/itemsByName.json');
+const { formatCm, formatTime } = require('../lib/format');
 
 const Style = () => {
   return (
@@ -60,7 +61,7 @@ const Style = () => {
             }
 
             .heading {
-                background: cornflowerblue;
+                background: lightgray;
                 padding: 10px 5px;
             }
 
@@ -76,6 +77,105 @@ const Style = () => {
   );
 };
 
+const PlayerName = ({ children }) => {
+  return (
+    <th style={{ maxWidth: 0, width: '16.7%' }}>
+      <div
+        style={{
+          textAlign: 'center',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        <Link href={`/player/${children}`}>
+          <a>{children}</a>
+        </Link>
+      </div>
+    </th>
+  );
+};
+
+const statsFunc = (stat, players, stats, type) => {
+  const normal = Object.keys(players).map((p) => stats[type][stat][p] ?? 0);
+  const max = Math.max(...normal);
+
+  const prettyName = stat.replace(/_/g, ' ');
+  const imgSrc = itemsByName[prettyName]?.icon;
+  const icon = imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />;
+
+  return (
+    <tr key={stat}>
+      <td>{icon}</td>
+      <th>
+        <Link href={`/stats?stat=${stat}`}>
+          <a>{stat.replace(/_/g, ' ')}</a>
+        </Link>
+      </th>
+
+      {Object.keys(players).map((p, idx, arr) => {
+        return (
+          <td className={stats[type][stat][p] === max ? 'max' : ''} key={p}>
+            {stat.indexOf('one_cm') !== -1
+              ? formatCm(stats[type][stat][p])
+              : stat.indexOf('time') !== -1 || stat.indexOf('minute') !== -1
+              ? formatTime(stats[type][stat][p])
+              : stats[type][stat][p]
+              ? stats[type][stat][p].toLocaleString()
+              : ''}
+          </td>
+        );
+      })}
+    </tr>
+  );
+};
+
+const oldStatsFunc = (stat, players, stats, oldStats, type) => {
+  const normal = Object.keys(players).map(
+    (p) =>
+      (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
+      (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0)
+  );
+  const max = Math.max(...normal);
+
+  const prettyName = stat.replace(/_/g, ' ');
+  const imgSrc = itemsByName[prettyName]?.icon;
+  const icon = imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />;
+
+  return max !== 0 ? (
+    <tr key={stat}>
+      <td>{icon}</td>
+
+      <th>
+        <Link href={`/stats?stat=${stat}`}>
+          <a>{stat.replace(/_/g, ' ')}</a>
+        </Link>
+      </th>
+
+      {Object.keys(players).map((p, idx, arr) => {
+        const diff =
+          (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
+          (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0);
+
+        return (
+          <td className={diff === max ? 'max' : ''} key={p}>
+            {diff === 0 ? '' : diff > 0 ? '+' : '-'}
+            {stat.indexOf('one_cm') !== -1
+              ? diff
+                ? formatCm(diff)
+                : ''
+              : stat.indexOf('time') !== -1 || stat.indexOf('minute') !== -1
+              ? formatTime(diff)
+              : diff
+              ? diff.toLocaleString()
+              : ''}
+          </td>
+        );
+      })}
+    </tr>
+  ) : null;
+};
+
 export const Table = ({
   type: typeFilter,
   players,
@@ -83,156 +183,53 @@ export const Table = ({
   statTypes,
   oldStats,
   value,
+  currStat,
 }) => {
-  const table = oldStats ? (
+  const playerNames = Object.keys(players).map((p) => {
+    return <PlayerName key={p}>{p}</PlayerName>;
+  });
+
+  const filteredStatTypes = statTypes
+    .sort((a, b) => (a > b ? 1 : -1))
+    .filter(
+      (t) =>
+        typeFilter === t ||
+        (typeFilter === 'all' && (!currStat || stats[t][currStat]))
+    );
+
+  const table = (
     <table className="table">
       <tbody>
-        {statTypes
-          .filter((t) => typeFilter === t || typeFilter === "all")
-          .map((type) => {
-            const statTypeKeys = Object.keys(stats[type]);
+        {filteredStatTypes.map((type) => {
+          const statTypeKeys = Object.keys(stats[type]);
+          const filteredStatTypeKeys = statTypeKeys
+            .sort((a, b) => (a > b ? 1 : -1))
+            .filter(
+              (stat) =>
+                stat.indexOf(value.toLowerCase()) !== -1 ||
+                stat.replace(/_/g, ' ').indexOf(value.toLowerCase()) !== -1
+            )
+            .filter((stat) => !currStat || currStat === stat);
 
-            return (
-              <>
-                {statTypeKeys
-                  .sort((a, b) => (a > b ? 1 : -1))
-                  .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
-                  .length > 0 ? (
-                  <tr className="heading">
-                    <th colSpan={2}>
-                      {typeFilter === "all" ? type.replace("_", " ") : ""}
-                    </th>
-                    {Object.keys(players).map((p) => {
-                      return <th key={p}>{p}</th>;
-                    })}
-                  </tr>
-                ) : null}
-                {statTypeKeys
-                  .sort((a, b) => (a > b ? 1 : -1))
-                  .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
-                  .map((stat) => {
-                    const normal = Object.keys(players).map(
-                      (p) =>
-                        (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-                        (oldStats[type][stat]
-                          ? oldStats[type][stat][p] ?? 0
-                          : 0)
-                    );
-                    const max = Math.max(...normal);
+          return (
+            <>
+              {filteredStatTypeKeys.length > 0 ? (
+                <tr className="heading">
+                  <th colSpan={2}>
+                    {typeFilter === 'all' ? type.replace('_', ' ') : ''}
+                  </th>
 
-                    const prettyName = stat.replace(/_/g, " ");
-                    const imgSrc = itemsByName[prettyName]?.icon;
-                    const icon = imgSrc && (
-                      <img src={`data:image/png;base64,${imgSrc}`} />
-                    );
-
-                    return max !== 0 ? (
-                      <tr key={stat}>
-                        <td>{icon}</td>
-
-                        <th>{stat.replace(/_/g, " ")}</th>
-
-                        {Object.keys(players).map((p, idx, arr) => {
-                          const diff =
-                            (stats[type][stat]
-                              ? stats[type][stat][p] ?? 0
-                              : 0) -
-                            (oldStats[type][stat]
-                              ? oldStats[type][stat][p] ?? 0
-                              : 0);
-
-                          return (
-                            <td className={diff === max ? "max" : ""} key={p}>
-                              {diff === 0 ? "" : diff > 0 ? "+" : "-"}
-                              {stat.indexOf("one_cm") !== -1
-                                ? diff
-                                  ? formatCm(diff)
-                                  : ""
-                                : stat.indexOf("time") !== -1 ||
-                                  stat.indexOf("minute") !== -1
-                                ? formatTime(diff)
-                                : diff
-                                ? diff.toLocaleString()
-                                : ""}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    ) : null;
-                  })}
-              </>
-            );
-          })}
-      </tbody>
-    </table>
-  ) : (
-    <table className="table">
-      <tbody>
-        {statTypes
-          .filter((t) => typeFilter === t || typeFilter === "all")
-          .map((type) => {
-            const statTypeKeys = Object.keys(stats[type]);
-
-            return (
-              <>
-                {statTypeKeys
-                  .sort((a, b) => (a > b ? 1 : -1))
-                  .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
-                  .length > 0 ? (
-                  <tr className="heading">
-                    <th colSpan={2}>
-                      {typeFilter === "all" ? type.replace("_", " ") : ""}
-                    </th>
-                    {Object.keys(players).map((p) => {
-                      return <th key={p}>{p}</th>;
-                    })}
-                  </tr>
-                ) : null}
-                {statTypeKeys
-                  .sort((a, b) => (a > b ? 1 : -1))
-                  .filter((stat) => stat.indexOf(value.toLowerCase()) !== -1)
-                  .map((stat) => {
-                    const normal = Object.keys(players).map(
-                      (p) => stats[type][stat][p] ?? 0
-                    );
-                    const max = Math.max(...normal);
-
-                    const prettyName = stat.replace(/_/g, " ");
-                    const imgSrc = itemsByName[prettyName]?.icon;
-                    const icon = imgSrc && (
-                      <img src={`data:image/png;base64,${imgSrc}`} />
-                    );
-
-                    return (
-                      <tr key={stat}>
-                        <td>{icon}</td>
-                        <th>{stat.replace(/_/g, " ")}</th>
-
-                        {Object.keys(players).map((p, idx, arr) => {
-                          return (
-                            <td
-                              className={
-                                stats[type][stat][p] === max ? "max" : ""
-                              }
-                              key={p}
-                            >
-                              {stat.indexOf("one_cm") !== -1
-                                ? formatCm(stats[type][stat][p])
-                                : stat.indexOf("time") !== -1 ||
-                                  stat.indexOf("minute") !== -1
-                                ? formatTime(stats[type][stat][p])
-                                : stats[type][stat][p]
-                                ? stats[type][stat][p].toLocaleString()
-                                : ""}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-              </>
-            );
-          })}
+                  {playerNames}
+                </tr>
+              ) : null}
+              {filteredStatTypeKeys.map((stat) =>
+                oldStats
+                  ? oldStatsFunc(stat, players, stats, oldStats, type)
+                  : statsFunc(stat, players, stats, type)
+              )}
+            </>
+          );
+        })}
       </tbody>
     </table>
   );

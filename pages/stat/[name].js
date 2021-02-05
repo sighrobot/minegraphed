@@ -1,7 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Container from "../../components/container";
-import NewStats from "../../components/new-stats";
+
+const itemsByName = require("../../lib/itemsByName.json");
 
 const Session = () => {
   const {
@@ -9,9 +10,20 @@ const Session = () => {
   } = useRouter();
 
   if (name) {
+    const prettyName = name.replace(/_/g, " ");
+    const imgSrc = itemsByName[prettyName]?.icon;
+
+    const icon = imgSrc ? (
+      <img src={`data:image/png;base64,${imgSrc}`} />
+    ) : null;
+
     return (
       <Container>
-        <h2>{name.replace(/_/g, " ")}</h2>
+        <div className="stat">
+          <h2>
+            {icon} {prettyName}
+          </h2>
+        </div>
       </Container>
     );
   }

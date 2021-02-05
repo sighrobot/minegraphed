@@ -1,78 +1,81 @@
-import React from "react";
-import Container from "../components/container";
-import Seg from "../components/seg";
-import DateFilter from "../components/date-filter";
+import React from 'react';
+import Container from '../components/container';
+import Seg from '../components/seg';
+import DateFilter from '../components/date-filter';
+import { useRouter } from 'next/router';
 
-import Table from "../components/table";
-import StatsDiff from "../components/statsdiff";
-const { SESSIONS, PLAYER_IDS } = require("../lib/constants");
-
-const jesse = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.jesse}.json`);
-const caleb = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.caleb}.json`);
-const abe = require(`../stats/${SESSIONS[0]}/${PLAYER_IDS.abe}.json`);
-
-const players = {
-  caleb,
-  jesse,
-  abe,
-};
-
-const stats = {};
-
-const playerKeys = Object.keys(players);
-
-playerKeys.forEach((player) => {
-  const statTypes = players[player].stats;
-  const statTypeKeys = Object.keys(statTypes);
-
-  statTypeKeys
-    .sort((a, b) => (a > b ? 1 : -1))
-    .forEach((statTypeKey) => {
-      const simpleStatTypeKey = statTypeKey.split("minecraft:")[1];
-
-      const playerStats = statTypes[statTypeKey];
-      const statKeys = Object.keys(playerStats);
-
-      if (!stats[simpleStatTypeKey]) {
-        stats[simpleStatTypeKey] = {};
-      }
-
-      statKeys.forEach((statKey) => {
-        const simpleStatKey = statKey.split("minecraft:")[1];
-
-        if (stats[simpleStatTypeKey][simpleStatKey]) {
-          stats[simpleStatTypeKey][simpleStatKey][player] =
-            playerStats[statKey];
-        } else {
-          stats[simpleStatTypeKey][simpleStatKey] = {
-            [player]: playerStats[statKey],
-          };
-        }
-      });
-    });
-});
+import Table from '../components/table';
+import StatsDiff from '../components/statsdiff';
+import { buildStats } from '../lib/build-stats';
+import { getImgSrc } from '../lib/items';
+const { SESSIONS } = require('../lib/constants');
 
 const Stats = () => {
-  const [value, setValue] = React.useState("");
+  const router = useRouter();
+  const { stats, players } = buildStats(SESSIONS[0]);
+  const [value, setValue] = React.useState('');
   const statTypes = Object.keys(stats);
   const handleChange = (e) => setValue(e.target.value);
-  const [type, setType] = React.useState("all");
+  const [type, setType] = React.useState('all');
   const handleSelectStatType = (e) => setType(e.target.name);
-  const [date, setDate] = React.useState("all");
+  const [date, setDate] = React.useState(router.query.date ?? 'all');
+  const [stat, setStat] = React.useState(router.query.stat ?? '');
+
+  React.useEffect(() => {
+    let path = '/stats?';
+
+    if (date !== 'all') {
+      path += `&date=${date}`;
+    }
+
+    if (stat) {
+      path += `&stat=${stat}`;
+    }
+
+    router.replace(path);
+  }, [date, stat]);
+
+  React.useEffect(() => {
+    if (router.query.date) {
+      setDate(router.query.date);
+    }
+
+    if (router.query.stat) {
+      setStat(router.query.stat);
+    }
+  }, [router.query.date, router.query.stat]);
+
+  const prettyStat = stat.replace(/_/g, ' ');
+
+  const handleRemoveStat = () => {
+    setStat('');
+  };
+
+  const imgSrc = getImgSrc(prettyStat);
 
   return (
     <Container isPadded={false}>
       <div className="sticky">
+        <input
+          type="search"
+          value={value}
+          placeholder="Search stats"
+          onChange={handleChange}
+        />
+
         <div className="inputs">
           <DateFilter date={date} onChange={setDate} />
 
-          <input
-            type="search"
-            value={value}
-            placeholder="Search stats"
-            onChange={handleChange}
-          />
+          {stat && (
+            <button className="stat-token" onClick={handleRemoveStat}>
+              <div>
+                {imgSrc && <img src={imgSrc} />}
+                {prettyStat}
+              </div>
+            </button>
+          )}
         </div>
+
         <Seg
           stats={stats}
           type={type}
@@ -81,16 +84,17 @@ const Stats = () => {
         />
       </div>
 
-      {date === "all" ? (
+      {date === 'all' ? (
         <Table
           type={type}
           players={players}
           statTypes={statTypes}
           stats={stats}
           value={value}
+          currStat={stat}
         />
       ) : (
-        <StatsDiff value={value} date={date} type={type} />
+        <StatsDiff value={value} date={date} type={type} currStat={stat} />
       )}
     </Container>
   );

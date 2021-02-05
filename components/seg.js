@@ -1,6 +1,6 @@
 import React from "react";
 
-const Seg = ({ type, onChange, statTypes }) => {
+const Seg = ({ type, onChange, statTypes, stats }) => {
   return (
     <div className="seg">
       <button
@@ -10,9 +10,11 @@ const Seg = ({ type, onChange, statTypes }) => {
       >
         all
       </button>
+
       {statTypes
         .sort((a, b) => (a > b ? 1 : -1))
         .map((t) => {
+          // const num = Object.keys(stats[t]).length;
           return (
             <button
               key={t}
@@ -21,6 +23,7 @@ const Seg = ({ type, onChange, statTypes }) => {
               onClick={onChange}
             >
               {t.replace("_", " ")}
+              {/* <sup>{num}</sup> */}
             </button>
           );
         })}
