@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from 'next/link'
+import React from 'react'
 
-import { getImgSrc } from 'lib/items';
-import { pretty, formatValue } from 'lib/format';
+import { getImgSrc } from 'lib/items'
+import { pretty, formatValue } from 'lib/format'
 
 const Style = () => {
   return (
@@ -74,8 +74,8 @@ const Style = () => {
             }
 
         `}</style>
-  );
-};
+  )
+}
 
 const PlayerName = ({ children }) => {
   return (
@@ -93,16 +93,16 @@ const PlayerName = ({ children }) => {
         </Link>
       </div>
     </th>
-  );
-};
+  )
+}
 
 const statsFunc = (stat, players, stats, type) => {
-  const normal = Object.keys(players).map((p) => stats[type][stat][p] ?? 0);
-  const max = Math.max(...normal);
+  const normal = Object.keys(players).map((p) => stats[type][stat][p] ?? 0)
+  const max = Math.max(...normal)
 
-  const prettyName = pretty(stat);
-  const imgSrc = getImgSrc(prettyName);
-  const icon = imgSrc && <img src={imgSrc} />;
+  const prettyName = pretty(stat)
+  const imgSrc = getImgSrc(prettyName)
+  const icon = imgSrc && <img src={imgSrc} />
 
   return (
     <tr key={stat}>
@@ -118,23 +118,23 @@ const statsFunc = (stat, players, stats, type) => {
           <td className={stats[type][stat][p] === max ? 'max' : ''} key={p}>
             {formatValue(stat, stats[type][stat][p])}
           </td>
-        );
+        )
       })}
     </tr>
-  );
-};
+  )
+}
 
 const oldStatsFunc = (stat, players, stats, oldStats, type) => {
   const normal = Object.keys(players).map(
     (p) =>
       (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-      (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0)
-  );
-  const max = Math.max(...normal);
+      (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0),
+  )
+  const max = Math.max(...normal)
 
-  const prettyName = pretty(stat);
-  const imgSrc = getImgSrc(prettyName);
-  const icon = imgSrc && <img src={imgSrc} />;
+  const prettyName = pretty(stat)
+  const imgSrc = getImgSrc(prettyName)
+  const icon = imgSrc && <img src={imgSrc} />
 
   return max !== 0 ? (
     <tr key={stat}>
@@ -149,18 +149,18 @@ const oldStatsFunc = (stat, players, stats, oldStats, type) => {
       {Object.keys(players).map((p, idx, arr) => {
         const diff =
           (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-          (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0);
+          (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0)
 
         return (
           <td className={diff === max ? 'max' : ''} key={p}>
             {diff === 0 ? '' : diff > 0 ? '+' : '-'}
             {formatValue(stat, diff)}
           </td>
-        );
+        )
       })}
     </tr>
-  ) : null;
-};
+  ) : null
+}
 
 export const Table = ({
   type: typeFilter,
@@ -172,30 +172,30 @@ export const Table = ({
   currStat,
 }) => {
   const playerNames = Object.keys(players).map((p) => {
-    return <PlayerName key={p}>{p}</PlayerName>;
-  });
+    return <PlayerName key={p}>{p}</PlayerName>
+  })
 
   const filteredStatTypes = statTypes
     .sort((a, b) => (a > b ? 1 : -1))
     .filter(
       (t) =>
         typeFilter === t ||
-        (typeFilter === 'all' && (!currStat || stats[t][currStat]))
-    );
+        (typeFilter === 'all' && (!currStat || stats[t][currStat])),
+    )
 
   const table = (
     <table className="table">
       <tbody>
         {filteredStatTypes.map((type) => {
-          const statTypeKeys = Object.keys(stats[type]);
+          const statTypeKeys = Object.keys(stats[type])
           const filteredStatTypeKeys = statTypeKeys
             .sort((a, b) => (a > b ? 1 : -1))
             .filter(
               (stat) =>
                 stat.indexOf(value.toLowerCase()) !== -1 ||
-                pretty(stat).indexOf(value.toLowerCase()) !== -1
+                pretty(stat).indexOf(value.toLowerCase()) !== -1,
             )
-            .filter((stat) => !currStat || currStat === stat);
+            .filter((stat) => !currStat || currStat === stat)
 
           return (
             <>
@@ -211,14 +211,14 @@ export const Table = ({
               {filteredStatTypeKeys.map((stat) =>
                 oldStats
                   ? oldStatsFunc(stat, players, stats, oldStats, type)
-                  : statsFunc(stat, players, stats, type)
+                  : statsFunc(stat, players, stats, type),
               )}
             </>
-          );
+          )
         })}
       </tbody>
     </table>
-  );
+  )
 
   return (
     <>
@@ -226,7 +226,7 @@ export const Table = ({
 
       {table}
     </>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table
