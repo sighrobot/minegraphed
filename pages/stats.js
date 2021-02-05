@@ -58,6 +58,7 @@ const Stats = () => {
     <Container isPadded={false}>
       <div className="sticky">
         <input
+          className={value ? 'active' : ''}
           type="search"
           value={value}
           placeholder="Search stats"

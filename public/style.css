@@ -169,6 +169,10 @@ summary h3 {
   border-bottom: 1px solid gray;
 }
 
+.sticky input[type='search'].active {
+  background: rgba(0, 0, 255, 0.1);
+}
+
 .sticky .stat-token {
   background: rgba(0, 0, 255, 0.1);
   margin-left: 10px;
