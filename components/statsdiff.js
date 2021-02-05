@@ -1,6 +1,6 @@
-import React from "react";
-import { buildStats } from "../lib/build-stats";
-import Table from "./table";
+import React from 'react';
+import { buildStats } from 'lib/build-stats';
+import Table from 'components/table';
 
 const StatsDiff = ({ date, value, type, currStat }) => {
   const { stats, oldStats, players } = buildStats(date);

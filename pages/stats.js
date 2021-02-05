@@ -1,14 +1,15 @@
 import React from 'react';
-import Container from '../components/container';
-import Seg from '../components/seg';
-import DateFilter from '../components/date-filter';
+import Container from 'components/container';
+import Seg from 'components/seg';
+import DateFilter from 'components/date-filter';
 import { useRouter } from 'next/router';
 
-import Table from '../components/table';
-import StatsDiff from '../components/statsdiff';
-import { buildStats } from '../lib/build-stats';
-import { getImgSrc } from '../lib/items';
-const { SESSIONS } = require('../lib/constants');
+import Table from 'components/table';
+import StatsDiff from 'components/statsdiff';
+import { buildStats } from 'lib/build-stats';
+import { getImgSrc } from 'lib/items';
+import { pretty } from 'lib/format';
+const { SESSIONS } = require('lib/constants');
 
 const Stats = () => {
   const router = useRouter();
@@ -45,7 +46,7 @@ const Stats = () => {
     }
   }, [router.query.date, router.query.stat]);
 
-  const prettyStat = stat.replace(/_/g, ' ');
+  const prettyStat = pretty(stat);
 
   const handleRemoveStat = () => {
     setStat('');
@@ -57,6 +58,7 @@ const Stats = () => {
     <Container isPadded={false}>
       <div className="sticky">
         <input
+          className={value ? 'active' : ''}
           type="search"
           value={value}
           placeholder="Search stats"

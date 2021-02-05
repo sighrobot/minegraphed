@@ -1,5 +1,5 @@
 import React from 'react';
-import { SESSIONS } from '../lib/constants';
+import { SESSIONS } from 'lib/constants';
 
 const DateFilter = ({ date, onChange }) => {
   const handleChange = (e) => onChange(e.target.value);

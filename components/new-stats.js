@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { getNewStats } from "../lib/getNewStats";
-
-const itemsByName = require("../lib/itemsByName.json");
+import Link from 'next/link';
+import { pretty } from 'lib/format';
+import { getNewStats } from 'lib/getNewStats';
+import { getImgSrc } from 'lib/items';
 
 const NewStats = ({ date }) => {
   const newStats = React.useMemo(() => getNewStats(date), [date]);
@@ -9,7 +9,7 @@ const NewStats = ({ date }) => {
   const byItem = {};
 
   newStats.forEach((s) => {
-    const split = s.split(".");
+    const split = s.split('.');
     const type = split[0];
     const item = split[1];
 
@@ -26,12 +26,10 @@ const NewStats = ({ date }) => {
     <div className="new-stats">
       <p>
         {sortedByItem.map((i) => {
-          const prettyName = i.replace(/_/g, " ");
-          const imgSrc = itemsByName[prettyName]?.icon;
+          const prettyName = pretty(i);
+          const imgSrc = getImgSrc(prettyName);
 
-          return (
-            imgSrc && <img key={i} src={`data:image/png;base64,${imgSrc}`} />
-          );
+          return imgSrc && <img key={i} src={imgSrc} />;
         })}
       </p>
 
@@ -39,19 +37,19 @@ const NewStats = ({ date }) => {
         <summary>Details</summary>
         <ul>
           {sortedByItem.map((i) => {
-            const prettyName = i.replace(/_/g, " ");
-            const imgSrc = itemsByName[prettyName]?.icon;
+            const prettyName = pretty(i);
+            const imgSrc = getImgSrc(prettyName);
 
             return (
               <li key={i}>
-                {imgSrc && <img src={`data:image/png;base64,${imgSrc}`} />}
+                {imgSrc && <img src={imgSrc} />}
                 <Link href={`/stats?stat=${i}&date=${date}`}>
                   <a>{prettyName}</a>
-                </Link>{" "}
+                </Link>{' '}
                 {byItem[i]
                   .sort((a, b) => (a > b ? 1 : -1))
-                  .map((s) => s.replace(/[._]/g, " "))
-                  .join(", ")}
+                  .map(pretty)
+                  .join(', ')}
               </li>
             );
           })}
