@@ -171,7 +171,7 @@ summary h3 {
 
 .sticky .stat-token {
   background: rgba(0, 0, 255, 0.1);
-  margin-left: 20px;
+  margin-left: 10px;
   border: none;
   padding: 0 10px;
   font-family: inherit;
@@ -231,6 +231,10 @@ summary h3 {
   border: none;
   font-family: inherit;
   height: 37px;
+}
+
+.date-filter select.active {
+  background: rgba(0, 0, 255, 0.1);
 }
 
 .inputs {
