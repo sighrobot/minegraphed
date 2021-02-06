@@ -42,8 +42,10 @@ main header {
 
 summary {
   cursor: pointer;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   display: inline;
+  /* color: gray; */
+  outline: 0;
 }
 
 a {
@@ -60,7 +62,7 @@ summary h3 {
 }
 
 .new-stats {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 .new-stats > * {
@@ -80,7 +82,7 @@ summary h3 {
 }
 
 .stats-item img,
-.new-stats li img {
+.new-stats img {
   height: 18px;
   width: 18px;
   transform: translateY(4px);
