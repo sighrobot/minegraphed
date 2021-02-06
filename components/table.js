@@ -62,6 +62,7 @@ const Style = () => {
               outline: 0;
               cursor: pointer;
               position: relative;
+              width: 100%;
             }
 
             th button.asc:after {
@@ -110,18 +111,18 @@ const PlayerName = ({ children, handleSort, sort, sortDir }) => {
 
   return (
     <th style={{ maxWidth: 0, width: '16.7%' }}>
-      <div
-        style={{
-          textAlign: 'center',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        <button onClick={onSort} name={children} className={className}>
+      <button onClick={onSort} name={children} className={className}>
+        <div
+          style={{
+            textAlign: 'center',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {children}
-        </button>
-      </div>
+        </div>
+      </button>
     </th>
   )
 }
