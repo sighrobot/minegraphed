@@ -2,7 +2,8 @@ import Link from 'next/link'
 import React from 'react'
 
 import { getImgSrc } from 'lib/items'
-import { pretty, formatValue } from 'lib/format'
+import { pretty, formatValue, formatValueDiff } from 'lib/format'
+import { PLAYER_IDS } from 'lib/constants'
 
 const Style = () => {
   return (
@@ -96,8 +97,8 @@ const PlayerName = ({ children }) => {
   )
 }
 
-const statsFunc = (stat, players, stats, type) => {
-  const normal = Object.keys(players).map((p) => stats[type][stat][p] ?? 0)
+const statsFunc = (stat, playerNames, stats, type, isDiff) => {
+  const normal = playerNames.map((p) => stats[type][stat][p] ?? 0)
   const max = Math.max(...normal)
 
   const prettyName = pretty(stat)
@@ -113,65 +114,30 @@ const statsFunc = (stat, players, stats, type) => {
         </Link>
       </th>
 
-      {Object.keys(players).map((p, idx, arr) => {
+      {playerNames.map((p) => {
         return (
           <td className={stats[type][stat][p] === max ? 'max' : ''} key={p}>
-            {formatValue(stat, stats[type][stat][p])}
+            {(isDiff ? formatValueDiff : formatValue)(
+              stat,
+              stats[type][stat][p],
+            )}
           </td>
         )
       })}
     </tr>
   )
-}
-
-const oldStatsFunc = (stat, players, stats, oldStats, type) => {
-  const normal = Object.keys(players).map(
-    (p) =>
-      (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-      (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0),
-  )
-  const max = Math.max(...normal)
-
-  const prettyName = pretty(stat)
-  const imgSrc = getImgSrc(prettyName)
-  const icon = imgSrc && <img src={imgSrc} />
-
-  return max !== 0 ? (
-    <tr key={stat}>
-      <td>{icon}</td>
-
-      <th>
-        <Link href={`/stats?stat=${stat}`}>
-          <a>{prettyName}</a>
-        </Link>
-      </th>
-
-      {Object.keys(players).map((p, idx, arr) => {
-        const diff =
-          (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-          (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0)
-
-        return (
-          <td className={diff === max ? 'max' : ''} key={p}>
-            {diff === 0 ? '' : diff > 0 ? '+' : '-'}
-            {formatValue(stat, diff)}
-          </td>
-        )
-      })}
-    </tr>
-  ) : null
 }
 
 export const Table = ({
   type: typeFilter,
-  players,
   stats,
   statTypes,
-  oldStats,
   value,
   currStat,
+  isDiff = false,
 }) => {
-  const playerNames = Object.keys(players).map((p) => {
+  const playerKeys = Object.keys(PLAYER_IDS)
+  const playerNames = playerKeys.map((p) => {
     return <PlayerName key={p}>{p}</PlayerName>
   })
 
@@ -209,9 +175,7 @@ export const Table = ({
                 </tr>
               ) : null}
               {filteredStatTypeKeys.map((stat) =>
-                oldStats
-                  ? oldStatsFunc(stat, players, stats, oldStats, type)
-                  : statsFunc(stat, players, stats, type),
+                statsFunc(stat, playerKeys, stats, type, isDiff),
               )}
             </>
           )

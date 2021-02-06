@@ -5,23 +5,28 @@ import DateFilter from 'components/date-filter'
 import { useRouter } from 'next/router'
 
 import Table from 'components/table'
-import { buildStats } from 'lib/build-stats'
+import { buildStats, buildStatsDiff } from 'lib/build-stats'
 import { getImgSrc } from 'lib/items'
 import { pretty } from 'lib/format'
 const { SESSIONS } = require('lib/constants')
 
 const Stats = () => {
   const router = useRouter()
-  const { stats, players, oldStats } = buildStats(
-    router.query.date ?? SESSIONS[0],
-  )
   const [value, setValue] = React.useState('')
-  const statTypes = Object.keys(stats)
   const handleChange = (e) => setValue(e.target.value)
   const [type, setType] = React.useState('all')
   const handleSelectStatType = (e) => setType(e.target.name)
   const [date, setDate] = React.useState(router.query.date ?? 'all')
   const [stat, setStat] = React.useState(router.query.stat ?? '')
+
+  const stats = React.useMemo(
+    () =>
+      (date !== 'all' ? buildStatsDiff : buildStats)(
+        date === 'all' ? SESSIONS[0] : date,
+      ),
+    [date],
+  )
+  const statTypes = React.useMemo(() => Object.keys(stats), [stats])
 
   React.useEffect(() => {
     let path = '/stats?'
@@ -80,6 +85,8 @@ const Stats = () => {
         </div>
 
         <Seg
+          search={value}
+          stat={stat}
           stats={stats}
           type={type}
           statTypes={statTypes}
@@ -91,10 +98,9 @@ const Stats = () => {
         type={type}
         stats={stats}
         statTypes={statTypes}
-        oldStats={date !== 'all' ? oldStats : undefined}
-        players={players}
         value={value}
         currStat={stat}
+        isDiff={date !== 'all'}
       />
     </Container>
   )

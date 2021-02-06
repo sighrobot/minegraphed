@@ -1,20 +1,20 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import Container from 'components/container';
-import { SESSIONS } from 'lib/constants';
-import { buildStats } from 'lib/build-stats';
-import Link from 'next/link';
-import { getImgSrc } from 'lib/items';
-import { formatValue, pretty } from 'lib/format';
+import React from 'react'
+import { useRouter } from 'next/router'
+import Container from 'components/container'
+import { PLAYER_IDS, SESSIONS } from 'lib/constants'
+import { buildStats } from 'lib/build-stats'
+import Link from 'next/link'
+import { getImgSrc } from 'lib/items'
+import { formatValue, pretty } from 'lib/format'
 
 const PersonalStat = ({ subtitle, title, statKey = '', value }) => {
-  const split = statKey.split('.');
-  const type = split[0];
-  const stat = split[1];
-  const prettyStat = pretty(stat);
-  const prettyType = pretty(type);
-  const imgSrc = getImgSrc(prettyStat);
-  const icon = imgSrc ? <img src={imgSrc} /> : null;
+  const split = statKey.split('.')
+  const type = split[0]
+  const stat = split[1]
+  const prettyStat = pretty(stat)
+  const prettyType = pretty(type)
+  const imgSrc = getImgSrc(prettyStat)
+  const icon = imgSrc ? <img src={imgSrc} /> : null
 
   return (
     <article className="personal-stat">
@@ -27,65 +27,65 @@ const PersonalStat = ({ subtitle, title, statKey = '', value }) => {
         </Link>
       </p>
     </article>
-  );
-};
+  )
+}
 
 const Session = () => {
   const {
     query: { name },
-  } = useRouter();
+  } = useRouter()
 
   if (name) {
-    const { stats, oldStats, players } = buildStats(SESSIONS[0]);
+    const stats = buildStats(SESSIONS[0])
 
-    const only = {};
-    const all = {};
+    const only = {}
+    const all = {}
 
-    const statKeys = Object.keys(stats);
+    const statKeys = Object.keys(stats)
 
     statKeys.forEach((statKey) => {
-      const byType = stats[statKey];
-      const typeKeys = Object.keys(byType);
+      const byType = stats[statKey]
+      const typeKeys = Object.keys(byType)
 
       typeKeys.forEach((typeKey) => {
-        const stat = byType[typeKey];
+        const stat = byType[typeKey]
         if (Object.keys(stat).length === 1 && stat[name]) {
-          only[`${statKey}.${typeKey}`] = stat;
+          only[`${statKey}.${typeKey}`] = stat
         }
 
-        all[`${statKey}.${typeKey}`] = stat;
-      });
-    });
+        all[`${statKey}.${typeKey}`] = stat
+      })
+    })
 
-    let topPct = { stat: '' };
-    let top = { stat: '' };
+    let topPct = { stat: '' }
+    let top = { stat: '' }
 
     Object.keys(only).forEach((o) => {
       if (!top.top || top.top[name] < only[o][name]) {
-        top.top = only[o];
-        top.stat = o;
+        top.top = only[o]
+        top.stat = o
       }
-    });
+    })
 
     Object.keys(all).forEach((a) => {
-      const ps = Object.keys(all[a]).filter((n) => n !== name);
-      const myValue = all[a][name] ?? 0;
+      const ps = Object.keys(all[a]).filter((n) => n !== name)
+      const myValue = all[a][name] ?? 0
 
-      let playerMax = 0;
+      let playerMax = 0
 
-      if (Object.keys(players).every((p) => all[a][p])) {
+      if (Object.keys(PLAYER_IDS).every((p) => all[a][p])) {
         ps.forEach((p) => {
-          playerMax = Math.max(all[a][p], playerMax);
-        });
+          playerMax = Math.max(all[a][p], playerMax)
+        })
 
-        const pct = (myValue / playerMax) * 100;
+        const pct = (myValue / playerMax) * 100
 
         if (playerMax !== 0 && (!topPct.top || topPct.top.pct < pct)) {
-          topPct.top = { ...all[a], pct };
-          topPct.stat = a;
+          topPct.top = { ...all[a], pct }
+          topPct.stat = a
         }
       }
-    });
+    })
 
     return (
       <Container>
@@ -107,10 +107,10 @@ const Session = () => {
           ></PersonalStat>
         </div>
       </Container>
-    );
+    )
   }
 
-  return null;
-};
+  return null
+}
 
-export default Session;
+export default Session
