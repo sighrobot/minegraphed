@@ -63,6 +63,7 @@ const Style = () => {
               cursor: pointer;
               position: relative;
               width: 100%;
+              font-size: inherit;
             }
 
             th button.asc:after {
