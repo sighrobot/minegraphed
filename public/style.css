@@ -153,6 +153,7 @@ summary h3 {
   position: sticky;
   top: 0;
   border-bottom: 1px solid gray;
+  z-index: 2;
 }
 
 .sticky input[type='search'] {

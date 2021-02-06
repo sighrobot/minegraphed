@@ -18,6 +18,8 @@ const Stats = () => {
   const handleSelectStatType = (e) => setType(e.target.name)
   const [date, setDate] = React.useState(router.query.date ?? 'all')
   const [stat, setStat] = React.useState(router.query.stat ?? '')
+  const [sort, setSort] = React.useState('')
+  const [sortDir, setSortDir] = React.useState('desc')
 
   const stats = React.useMemo(
     () =>
@@ -56,6 +58,11 @@ const Stats = () => {
 
   const handleRemoveStat = () => {
     setStat('')
+  }
+
+  const handleSort = (name, dir) => {
+    setSort(name)
+    setSortDir(dir)
   }
 
   const imgSrc = getImgSrc(prettyStat)
@@ -101,6 +108,9 @@ const Stats = () => {
         value={value}
         currStat={stat}
         isDiff={date !== 'all'}
+        handleSort={handleSort}
+        sort={sort}
+        sortDir={sortDir}
       />
     </Container>
   )

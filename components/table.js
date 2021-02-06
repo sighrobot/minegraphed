@@ -52,7 +52,28 @@ const Style = () => {
 
             th {
                 text-align: left;
+            }
 
+            th button {
+              background: none;
+              border: none;
+              font-family: inherit;
+              text-decoration: underline;
+              outline: 0;
+              cursor: pointer;
+              position: relative;
+            }
+
+            th button.asc:after {
+              position: absolute;
+              content: '\\25B2';
+              z-index:1;
+            }
+
+            th button.desc:after {
+              position: absolute;
+              content: '\\25BC';
+              z-index:1;
             }
 
             td {
@@ -78,7 +99,15 @@ const Style = () => {
   )
 }
 
-const PlayerName = ({ children }) => {
+const PlayerName = ({ children, handleSort, sort, sortDir }) => {
+  const onSort = (e) =>
+    handleSort(
+      sort !== children || sortDir === 'desc' ? e.target.name : '',
+      sort !== children ? 'desc' : 'asc',
+    )
+
+  const className = sort === children ? sortDir : undefined
+
   return (
     <th style={{ maxWidth: 0, width: '16.7%' }}>
       <div
@@ -89,9 +118,9 @@ const PlayerName = ({ children }) => {
           textOverflow: 'ellipsis',
         }}
       >
-        <Link href={`/player/${children}`}>
-          <a>{children}</a>
-        </Link>
+        <button onClick={onSort} name={children} className={className}>
+          {children}
+        </button>
       </div>
     </th>
   )
@@ -135,10 +164,17 @@ export const Table = ({
   value,
   currStat,
   isDiff = false,
+  sort,
+  handleSort,
+  sortDir,
 }) => {
   const playerKeys = Object.keys(PLAYER_IDS)
   const playerNames = playerKeys.map((p) => {
-    return <PlayerName key={p}>{p}</PlayerName>
+    return (
+      <PlayerName key={p} handleSort={handleSort} sort={sort} sortDir={sortDir}>
+        {p}
+      </PlayerName>
+    )
   })
 
   const filteredStatTypes = statTypes
@@ -156,6 +192,14 @@ export const Table = ({
           const statTypeKeys = Object.keys(stats[type])
           const filteredStatTypeKeys = statTypeKeys
             .sort((a, b) => (a > b ? 1 : -1))
+            .sort((a, b) =>
+              !sort ||
+              (sortDir === 'desc'
+                ? (stats[type][a][sort] ?? 0) < (stats[type][b][sort] ?? 0)
+                : (stats[type][a][sort] ?? 0) > (stats[type][b][sort] ?? 0))
+                ? 1
+                : -1,
+            )
             .filter(
               (stat) =>
                 stat.indexOf(value.toLowerCase()) !== -1 ||
