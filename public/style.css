@@ -42,8 +42,10 @@ main header {
 
 summary {
   cursor: pointer;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   display: inline;
+  /* color: gray; */
+  outline: 0;
 }
 
 a {
@@ -60,7 +62,7 @@ summary h3 {
 }
 
 .new-stats {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 .new-stats > * {
@@ -80,7 +82,7 @@ summary h3 {
 }
 
 .stats-item img,
-.new-stats li img {
+.new-stats img {
   height: 18px;
   width: 18px;
   transform: translateY(4px);
@@ -205,6 +207,7 @@ summary h3 {
 
 .log-entry {
   padding: 20px 10px;
+  padding-bottom: 40px;
 }
 
 .log-entry h3 {
@@ -224,7 +227,7 @@ summary h3 {
 }
 
 .log-entry + .log-entry {
-  border-top: 1px solid gray;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .date-filter select {
@@ -257,12 +260,9 @@ summary h3 {
 
 .personal-stat {
   background: rgba(0, 0, 255, 0.05);
-  padding: 20px;
+  padding: 10px;
 }
 
-.personal-stat + .personal-stat {
-  margin-top: 20px;
-}
 .personal-stat h3,
 .personal-stat h4 {
   margin: 0;
@@ -270,14 +270,17 @@ summary h3 {
 
 .personal-stat h3 {
   color: gray;
+  font-size: 12px;
 }
+
 .personal-stat h4 {
+  font-size: 14px;
   color: darkgray;
 }
 
 .personal-stat p {
   margin: 0;
-  margin-top: 10px;
+  /* margin-top: px; */
 }
 
 .personal-stat img {

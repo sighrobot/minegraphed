@@ -33,7 +33,7 @@ const NewStats = ({ date }) => {
         })}
       </p>
 
-      <details>
+      {/* <details>
         <summary>Details</summary>
         <ul>
           {sortedByItem.map((i) => {
@@ -54,7 +54,7 @@ const NewStats = ({ date }) => {
             )
           })}
         </ul>
-      </details>
+      </details> */}
     </div>
   )
 }
