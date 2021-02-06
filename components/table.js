@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from 'next/link'
+import React from 'react'
 
-import { getImgSrc } from 'lib/items';
-import { pretty, formatValue } from 'lib/format';
+import { getImgSrc } from 'lib/items'
+import { pretty, formatValue, formatValueDiff } from 'lib/format'
+import { PLAYER_IDS } from 'lib/constants'
 
 const Style = () => {
   return (
@@ -51,7 +52,35 @@ const Style = () => {
 
             th {
                 text-align: left;
+            }
 
+            th button {
+              background: none;
+              border: none;
+              font-family: inherit;
+              text-decoration: underline;
+              outline: 0;
+              cursor: pointer;
+              position: relative;
+              width: 100%;
+              font-size: inherit;
+              padding: 0;
+            }
+
+            th button.asc:after {
+              position: absolute;
+              content: '\\25B2';
+              right: 0;
+              top: 0;
+              z-index:1;
+            }
+
+            th button.desc:after {
+              position: absolute;
+              content: '\\25BC';
+              right: 0;
+              top:0;
+              z-index:1;
             }
 
             td {
@@ -74,35 +103,45 @@ const Style = () => {
             }
 
         `}</style>
-  );
-};
+  )
+}
 
-const PlayerName = ({ children }) => {
+const PlayerName = ({ children, handleSort, sort, sortDir }) => {
+  const onSort = (e) => {
+    handleSort(
+      sort !== children || sortDir === 'desc' ? e.target.name : '',
+      sort !== children ? 'desc' : 'asc',
+    )
+  }
+
+  const className = sort === children ? sortDir : undefined
+
   return (
     <th style={{ maxWidth: 0, width: '16.7%' }}>
-      <div
-        style={{
-          textAlign: 'center',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        <Link href={`/player/${children}`}>
-          <a>{children}</a>
-        </Link>
-      </div>
+      <button onClick={onSort} name={children} className={className}>
+        <div
+          style={{
+            textAlign: 'center',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            pointerEvents: 'none',
+          }}
+        >
+          {children}
+        </div>
+      </button>
     </th>
-  );
-};
+  )
+}
 
-const statsFunc = (stat, players, stats, type) => {
-  const normal = Object.keys(players).map((p) => stats[type][stat][p] ?? 0);
-  const max = Math.max(...normal);
+const statsFunc = (stat, playerNames, stats, type, isDiff) => {
+  const normal = playerNames.map((p) => stats[type][stat][p] ?? 0)
+  const max = Math.max(...normal)
 
-  const prettyName = pretty(stat);
-  const imgSrc = getImgSrc(prettyName);
-  const icon = imgSrc && <img src={imgSrc} />;
+  const prettyName = pretty(stat)
+  const imgSrc = getImgSrc(prettyName)
+  const icon = imgSrc && <img src={imgSrc} />
 
   return (
     <tr key={stat}>
@@ -113,89 +152,69 @@ const statsFunc = (stat, players, stats, type) => {
         </Link>
       </th>
 
-      {Object.keys(players).map((p, idx, arr) => {
+      {playerNames.map((p) => {
         return (
           <td className={stats[type][stat][p] === max ? 'max' : ''} key={p}>
-            {formatValue(stat, stats[type][stat][p])}
+            {(isDiff ? formatValueDiff : formatValue)(
+              stat,
+              stats[type][stat][p],
+            )}
           </td>
-        );
+        )
       })}
     </tr>
-  );
-};
-
-const oldStatsFunc = (stat, players, stats, oldStats, type) => {
-  const normal = Object.keys(players).map(
-    (p) =>
-      (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-      (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0)
-  );
-  const max = Math.max(...normal);
-
-  const prettyName = pretty(stat);
-  const imgSrc = getImgSrc(prettyName);
-  const icon = imgSrc && <img src={imgSrc} />;
-
-  return max !== 0 ? (
-    <tr key={stat}>
-      <td>{icon}</td>
-
-      <th>
-        <Link href={`/stats?stat=${stat}`}>
-          <a>{prettyName}</a>
-        </Link>
-      </th>
-
-      {Object.keys(players).map((p, idx, arr) => {
-        const diff =
-          (stats[type][stat] ? stats[type][stat][p] ?? 0 : 0) -
-          (oldStats[type][stat] ? oldStats[type][stat][p] ?? 0 : 0);
-
-        return (
-          <td className={diff === max ? 'max' : ''} key={p}>
-            {diff === 0 ? '' : diff > 0 ? '+' : '-'}
-            {formatValue(stat, diff)}
-          </td>
-        );
-      })}
-    </tr>
-  ) : null;
-};
+  )
+}
 
 export const Table = ({
   type: typeFilter,
-  players,
   stats,
   statTypes,
-  oldStats,
   value,
   currStat,
+  isDiff = false,
+  sort,
+  handleSort,
+  sortDir,
 }) => {
-  const playerNames = Object.keys(players).map((p) => {
-    return <PlayerName key={p}>{p}</PlayerName>;
-  });
+  const playerKeys = Object.keys(PLAYER_IDS)
+  const playerNames = playerKeys.map((p) => {
+    return (
+      <PlayerName key={p} handleSort={handleSort} sort={sort} sortDir={sortDir}>
+        {p}
+      </PlayerName>
+    )
+  })
 
   const filteredStatTypes = statTypes
     .sort((a, b) => (a > b ? 1 : -1))
     .filter(
       (t) =>
         typeFilter === t ||
-        (typeFilter === 'all' && (!currStat || stats[t][currStat]))
-    );
+        (typeFilter === 'all' && (!currStat || stats[t][currStat])),
+    )
 
   const table = (
     <table className="table">
       <tbody>
         {filteredStatTypes.map((type) => {
-          const statTypeKeys = Object.keys(stats[type]);
+          const statTypeKeys = Object.keys(stats[type])
           const filteredStatTypeKeys = statTypeKeys
             .sort((a, b) => (a > b ? 1 : -1))
+            .sort((a, b) =>
+              !sort ||
+              (sortDir === 'desc'
+                ? (stats[type][a][sort] ?? 0) < (stats[type][b][sort] ?? 0)
+                : (stats[type][a][sort] ?? 0) > (stats[type][b][sort] ?? 0))
+                ? 1
+                : -1,
+            )
             .filter(
               (stat) =>
                 stat.indexOf(value.toLowerCase()) !== -1 ||
-                pretty(stat).indexOf(value.toLowerCase()) !== -1
+                pretty(stat).indexOf(value.toLowerCase()) !== -1,
             )
-            .filter((stat) => !currStat || currStat === stat);
+            .filter((stat) => !currStat || currStat === stat)
 
           return (
             <>
@@ -209,16 +228,14 @@ export const Table = ({
                 </tr>
               ) : null}
               {filteredStatTypeKeys.map((stat) =>
-                oldStats
-                  ? oldStatsFunc(stat, players, stats, oldStats, type)
-                  : statsFunc(stat, players, stats, type)
+                statsFunc(stat, playerKeys, stats, type, isDiff),
               )}
             </>
-          );
+          )
         })}
       </tbody>
     </table>
-  );
+  )
 
   return (
     <>
@@ -226,7 +243,7 @@ export const Table = ({
 
       {table}
     </>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

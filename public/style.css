@@ -115,18 +115,18 @@ summary h3 {
 .seg button {
   font-size: 14px;
   font-family: inherit;
-  background: none;
+  background: rgba(255, 255, 0, 0.1);
   padding: 0 15px;
   border: none;
   cursor: pointer;
   outline: 0;
   white-space: nowrap;
   height: 37px;
+  position: relative;
 }
 
-.seg button {
-  background: rgba(255, 255, 0, 0.1);
-  position: relative;
+.seg button[disabled] {
+  cursor: not-allowed;
 }
 
 .seg button sup {
@@ -153,6 +153,7 @@ summary h3 {
   position: sticky;
   top: 0;
   border-bottom: 1px solid gray;
+  z-index: 2;
 }
 
 .sticky input[type='search'] {
