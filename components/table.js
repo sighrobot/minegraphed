@@ -64,17 +64,22 @@ const Style = () => {
               position: relative;
               width: 100%;
               font-size: inherit;
+              padding: 0;
             }
 
             th button.asc:after {
               position: absolute;
               content: '\\25B2';
+              right: 0;
+              top: 0;
               z-index:1;
             }
 
             th button.desc:after {
               position: absolute;
               content: '\\25BC';
+              right: 0;
+              top:0;
               z-index:1;
             }
 
@@ -102,11 +107,12 @@ const Style = () => {
 }
 
 const PlayerName = ({ children, handleSort, sort, sortDir }) => {
-  const onSort = (e) =>
+  const onSort = (e) => {
     handleSort(
       sort !== children || sortDir === 'desc' ? e.target.name : '',
       sort !== children ? 'desc' : 'asc',
     )
+  }
 
   const className = sort === children ? sortDir : undefined
 
@@ -119,6 +125,7 @@ const PlayerName = ({ children, handleSort, sort, sortDir }) => {
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
+            pointerEvents: 'none',
           }}
         >
           {children}
