@@ -4,7 +4,7 @@ import NewStats from 'components/new-stats'
 import { SESSIONS, PLAYER_IDS } from 'lib/constants'
 import Link from 'next/link'
 import { PersonalStat } from './players/[name]'
-import { customStats } from 'lib/build-stats'
+import { customStats, getMaxByType } from 'lib/build-stats'
 
 const players = Object.keys(PLAYER_IDS)
 
@@ -15,6 +15,12 @@ const Adventure = () => {
 
       {SESSIONS.slice(0, SESSIONS.length - 1).map((date, idx) => {
         const dateString = new Date(`${date}T12:00:00-05:00`).toDateString()
+
+        const playersCustomStats = players.map((p) => {
+          return customStats(p, date, true)
+        })
+
+        // const maxByType = getMaxByType(players, playersCustomStats)
 
         return (
           <details
@@ -34,8 +40,8 @@ const Adventure = () => {
                 overflowX: 'auto',
               }}
             >
-              {players.map((p) => {
-                const { hu, gp } = customStats(p, date, true)
+              {players.map((p, idx) => {
+                const { hu, gp } = playersCustomStats[idx]
 
                 return (
                   <article
