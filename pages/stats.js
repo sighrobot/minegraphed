@@ -30,6 +30,18 @@ const Stats = () => {
   )
   const statTypes = React.useMemo(() => Object.keys(stats), [stats])
 
+  const statKeys = React.useMemo(() => {
+    const keys = {}
+
+    statTypes.forEach((statTypeKey) => {
+      Object.keys(stats[statTypeKey]).forEach((s) => {
+        keys[pretty(s)] = 1
+      })
+    })
+
+    return Object.keys(keys).sort((a, b) => (a > b ? 1 : -1))
+  }, [statTypes])
+
   React.useEffect(() => {
     let path = '/stats?'
 
@@ -71,12 +83,19 @@ const Stats = () => {
     <Container isPadded={false}>
       <div className="sticky">
         <input
+          list={value.length > 2 ? 'options' : undefined}
           className={value ? 'active' : ''}
           type="search"
           value={value}
           placeholder="Search stats"
           onChange={handleChange}
         />
+
+        <datalist id="options">
+          {statKeys.map((sk) => (
+            <option key={sk} value={sk} />
+          ))}
+        </datalist>
 
         <div className="inputs">
           <DateFilter date={date} onChange={setDate} />
