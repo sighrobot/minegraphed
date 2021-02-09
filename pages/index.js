@@ -3,6 +3,7 @@ import Container from 'components/container'
 import NewStats from 'components/new-stats'
 import { SESSIONS, PLAYER_IDS } from 'lib/constants'
 import Link from 'next/link'
+import Head from 'next/head'
 import { PersonalStat } from './players/[name]'
 import { customStats, getMaxByType } from 'lib/build-stats'
 
@@ -11,6 +12,10 @@ const players = Object.keys(PLAYER_IDS)
 const Adventure = () => {
   return (
     <Container isPadded={false}>
+      <Head>
+        <title>Adventure Log - JCA-MC</title>
+      </Head>
+
       <h1 style={{ padding: '0 10px' }}>Adventure Log</h1>
 
       {SESSIONS.slice(0, SESSIONS.length - 1).map((date, idx) => {
