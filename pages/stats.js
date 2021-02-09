@@ -3,6 +3,7 @@ import Container from 'components/container'
 import Seg from 'components/seg'
 import DateFilter from 'components/date-filter'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 import Table from 'components/table'
 import { buildStats, buildStatsDiff } from 'lib/build-stats'
@@ -81,6 +82,12 @@ const Stats = () => {
 
   return (
     <Container isPadded={false}>
+      <Head>
+        <title>
+          {stat ? `${prettyStat} - ` : ''}{' '}
+          {date ? `${date === 'all' ? 'All-time' : date} - ` : ''}JCA-MC
+        </title>
+      </Head>
       <div className="sticky">
         <input
           list={value.length > 2 ? 'options' : undefined}

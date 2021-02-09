@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Container from 'components/container'
-import { PLAYER_IDS, SESSIONS } from 'lib/constants'
+import Head from 'next/head'
 import { customStats } from 'lib/build-stats'
 import Link from 'next/link'
 import { getImgSrc } from 'lib/items'
@@ -41,6 +41,10 @@ const Session = () => {
 
     return (
       <Container>
+        <Head>
+          <title>{name} - JCA-MC</title>
+        </Head>
+
         <div className="player">
           <h2>{name}</h2>
 
