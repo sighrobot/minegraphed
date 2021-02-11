@@ -159,6 +159,7 @@ summary h3 {
 }
 
 .sticky input[type='search'] {
+  background: none;
   border-radius: 0;
   -webkit-appearance: none;
   width: 100%;
@@ -231,6 +232,7 @@ summary h3 {
 }
 
 .date-filter select {
+  background: none;
   outline: 0;
   border-radius: 0;
   cursor: pointer;
@@ -287,4 +289,49 @@ summary h3 {
   height: 18px;
   width: 18px;
   transform: translateY(3px);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: white;
+  }
+
+  tr {
+    background: rgba(255, 255, 255, 0.01);
+  }
+
+  a.active {
+    color: white;
+  }
+
+  tr.heading {
+    background: rgba(255, 255, 255, 0.15);
+    color: darkgray;
+  }
+
+  tr.heading button {
+    color: darkgray;
+  }
+
+  .seg button {
+    color: white;
+  }
+
+  .sticky {
+    background: black;
+  }
+
+  input {
+    color: white;
+  }
+
+  .date-filter select {
+    color: white;
+  }
+
+  .sticky input[type='search'].active,
+  .date-filter select.active {
+    background: midnightblue;
+  }
 }
