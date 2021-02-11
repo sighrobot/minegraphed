@@ -4,8 +4,8 @@ import Container from 'components/container'
 import Head from 'next/head'
 import { customStats } from 'lib/build-stats'
 import Link from 'next/link'
-import { getImgSrc } from 'lib/items'
 import { formatValue, pretty } from 'lib/format'
+import { ItemIcon } from 'components/item-icon'
 
 export const PersonalStat = ({
   subtitle,
@@ -14,8 +14,7 @@ export const PersonalStat = ({
 }) => {
   const prettyStat = pretty(stat)
   const prettyType = pretty(type)
-  const imgSrc = getImgSrc(prettyStat)
-  const icon = imgSrc ? <img src={imgSrc} /> : null
+  const icon = <ItemIcon name={stat} />
 
   return (
     <article className="personal-stat">

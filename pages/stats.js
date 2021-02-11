@@ -7,8 +7,8 @@ import Head from 'next/head'
 
 import Table from 'components/table'
 import { buildStats, buildStatsDiff } from 'lib/build-stats'
-import { getImgSrc } from 'lib/items'
 import { pretty } from 'lib/format'
+import { ItemIcon } from 'components/item-icon'
 const { SESSIONS } = require('lib/constants')
 
 const Stats = () => {
@@ -78,8 +78,6 @@ const Stats = () => {
     setSortDir(dir)
   }
 
-  const imgSrc = getImgSrc(prettyStat)
-
   return (
     <Container isPadded={false}>
       <Head>
@@ -110,7 +108,7 @@ const Stats = () => {
           {stat && (
             <button className="stat-token" onClick={handleRemoveStat}>
               <div>
-                {imgSrc && <img src={imgSrc} />}
+                <ItemIcon name={stat} />
                 {prettyStat}
               </div>
             </button>

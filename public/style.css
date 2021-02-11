@@ -81,11 +81,8 @@ summary h3 {
   font-style: italic;
 }
 
-.stats-item img,
-.new-stats img {
-  height: 18px;
-  width: 18px;
-  transform: translateY(4px);
+.stats-item .icon-minecraft-sm,
+.new-stats .icon-minecraft-sm {
   margin-right: 5px;
 }
 
@@ -102,10 +99,6 @@ summary h3 {
 .stats-item {
   display: flex;
   align-items: center;
-}
-
-.stats-item img {
-  transform: none;
 }
 
 .seg {
@@ -215,9 +208,9 @@ summary h3 {
   font-size: 20px;
 }
 
-.log-entry > * > * > img {
-  height: 25px;
-  width: 25px;
+.log-entry > * > * > .icon-minecraft-sm {
+  /* height: 25px;
+  width: 25px; */
   margin-right: 5px;
 }
 
@@ -256,7 +249,7 @@ summary h3 {
   align-items: center;
   display: flex;
 }
-.stat h2 img {
+.stat h2 .icon-minecraft-sm {
   margin-right: 10px;
 }
 
@@ -283,12 +276,6 @@ summary h3 {
 .personal-stat p {
   margin: 0;
   /* margin-top: px; */
-}
-
-.personal-stat img {
-  height: 18px;
-  width: 18px;
-  transform: translateY(3px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -332,7 +319,8 @@ summary h3 {
 
   .sticky input[type='search'].active,
   .date-filter select.active,
-  .inputs .stat-token {
+  .inputs .stat-token,
+  .personal-stat {
     background: midnightblue;
   }
 

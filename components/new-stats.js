@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { pretty } from 'lib/format'
 import { getNewStats } from 'lib/getNewStats'
-import { getImgSrc } from 'lib/items'
+import { ItemIcon } from './item-icon'
 
 const NewStats = ({ date }) => {
   const newStats = React.useMemo(() => getNewStats(date), [date])
@@ -13,10 +12,12 @@ const NewStats = ({ date }) => {
     const type = split[0]
     const item = split[1]
 
-    if (byItem[item]) {
-      byItem[item].push(type)
-    } else {
-      byItem[item] = [type]
+    if (!['killed_by', 'killed', 'custom'].includes(type)) {
+      if (byItem[item]) {
+        byItem[item].push(type)
+      } else {
+        byItem[item] = [type]
+      }
     }
   })
 
@@ -26,10 +27,7 @@ const NewStats = ({ date }) => {
     <div className="new-stats">
       <p>
         {sortedByItem.map((i) => {
-          const prettyName = pretty(i)
-          const imgSrc = getImgSrc(prettyName)
-
-          return imgSrc && <img key={i} src={imgSrc} />
+          return <ItemIcon name={i} />
         })}
       </p>
 
