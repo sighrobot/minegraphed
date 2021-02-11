@@ -12,7 +12,7 @@ const NewStats = ({ date }) => {
     const type = split[0]
     const item = split[1]
 
-    if (!['killed_by', 'killed', 'custom'].includes(type)) {
+    if (!['custom'].includes(type)) {
       if (byItem[item]) {
         byItem[item].push(type)
       } else {
