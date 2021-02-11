@@ -193,9 +193,7 @@ summary h3 {
   padding-right: 15px;
 }
 
-.sticky .stat-token img {
-  height: 16px;
-  width: 16px;
+.sticky .stat-token .icon-minecraft-sm {
   margin-right: 5px;
 }
 
