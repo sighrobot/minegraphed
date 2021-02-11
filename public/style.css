@@ -331,7 +331,12 @@ summary h3 {
   }
 
   .sticky input[type='search'].active,
-  .date-filter select.active {
+  .date-filter select.active,
+  .inputs .stat-token {
     background: midnightblue;
+  }
+
+  .inputs .stat-token {
+    color: white;
   }
 }
