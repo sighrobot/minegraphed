@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { getImgSrc } from 'lib/items'
 import { pretty, formatValue, formatValueDiff } from 'lib/format'
 import { PLAYER_IDS } from 'lib/constants'
+import { ItemIcon } from './item-icon'
 
 const Style = () => {
   return (
@@ -138,10 +138,9 @@ const PlayerName = ({ children, handleSort, sort, sortDir }) => {
 const statsFunc = (stat, playerNames, stats, type, isDiff) => {
   const normal = playerNames.map((p) => stats[type][stat][p] ?? 0)
   const max = Math.max(...normal)
-
   const prettyName = pretty(stat)
-  const imgSrc = getImgSrc(prettyName)
-  const icon = imgSrc && <img src={imgSrc} />
+
+  const icon = <ItemIcon name={stat} />
 
   return (
     <tr key={stat}>

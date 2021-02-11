@@ -81,11 +81,8 @@ summary h3 {
   font-style: italic;
 }
 
-.stats-item img,
-.new-stats img {
-  height: 18px;
-  width: 18px;
-  transform: translateY(4px);
+.stats-item .icon-minecraft-sm,
+.new-stats .icon-minecraft-sm {
   margin-right: 5px;
 }
 
@@ -102,10 +99,6 @@ summary h3 {
 .stats-item {
   display: flex;
   align-items: center;
-}
-
-.stats-item img {
-  transform: none;
 }
 
 .seg {
@@ -159,6 +152,7 @@ summary h3 {
 }
 
 .sticky input[type='search'] {
+  background: none;
   border-radius: 0;
   -webkit-appearance: none;
   width: 100%;
@@ -199,9 +193,7 @@ summary h3 {
   padding-right: 15px;
 }
 
-.sticky .stat-token img {
-  height: 16px;
-  width: 16px;
+.sticky .stat-token .icon-minecraft-sm {
   margin-right: 5px;
 }
 
@@ -214,9 +206,9 @@ summary h3 {
   font-size: 20px;
 }
 
-.log-entry > * > * > img {
-  height: 25px;
-  width: 25px;
+.log-entry > * > * > .icon-minecraft-sm {
+  /* height: 25px;
+  width: 25px; */
   margin-right: 5px;
 }
 
@@ -231,6 +223,7 @@ summary h3 {
 }
 
 .date-filter select {
+  background: none;
   outline: 0;
   border-radius: 0;
   cursor: pointer;
@@ -254,7 +247,7 @@ summary h3 {
   align-items: center;
   display: flex;
 }
-.stat h2 img {
+.stat h2 .icon-minecraft-sm {
   margin-right: 10px;
 }
 
@@ -283,8 +276,53 @@ summary h3 {
   /* margin-top: px; */
 }
 
-.personal-stat img {
-  height: 18px;
-  width: 18px;
-  transform: translateY(3px);
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+    color: white;
+  }
+
+  tr {
+    background: rgba(255, 255, 255, 0.01);
+  }
+
+  a.active {
+    color: white;
+  }
+
+  tr.heading {
+    background: rgba(255, 255, 255, 0.15);
+    color: darkgray;
+  }
+
+  tr.heading button {
+    color: darkgray;
+  }
+
+  .seg button {
+    color: white;
+  }
+
+  .sticky {
+    background: black;
+  }
+
+  input {
+    color: white;
+  }
+
+  .date-filter select {
+    color: white;
+  }
+
+  .sticky input[type='search'].active,
+  .date-filter select.active,
+  .inputs .stat-token,
+  .personal-stat {
+    background: midnightblue;
+  }
+
+  .inputs .stat-token {
+    color: white;
+  }
 }
