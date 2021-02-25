@@ -326,3 +326,8 @@ summary h3 {
     color: white;
   }
 }
+
+#viz {
+  height: 200px;
+  width: 100%;
+}

@@ -146,7 +146,7 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
     <tr key={stat}>
       <td>{icon}</td>
       <th>
-        <Link href={`/stats?stat=${stat}`}>
+        <Link href={`/stats/${stat}`}>
           <a>{prettyName}</a>
         </Link>
       </th>

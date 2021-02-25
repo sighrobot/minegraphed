@@ -1,25 +1,30 @@
 import React from 'react'
 import { pretty } from 'lib/format'
 
-const Seg = ({ type, onChange, statTypes, stats, stat, search }) => {
+const Seg = ({ type, onChange, statTypes, stats, stat, search, hideAll }) => {
   return (
     <div className="seg">
-      <button
-        name="all"
-        className={type === 'all' ? 'active' : ''}
-        onClick={onChange}
-      >
-        all
-      </button>
+      {!hideAll && (
+        <button
+          name="all"
+          className={type === 'all' ? 'active' : ''}
+          onClick={onChange}
+        >
+          all
+        </button>
+      )}
 
       {statTypes
         .sort((a, b) => (a > b ? 1 : -1))
         .map((t) => {
-          const num = Object.keys(stats[t])
-            .filter((thisStat) => !stat || thisStat === stat)
-            .filter(
-              (thisStat) => !search || pretty(thisStat).indexOf(search) !== -1,
-            ).length
+          const num = stats
+            ? Object.keys(stats[t])
+                .filter((thisStat) => !stat || thisStat === stat)
+                .filter(
+                  (thisStat) =>
+                    !search || pretty(thisStat).indexOf(search) !== -1,
+                ).length
+            : 1
           return (
             <button
               key={t}
