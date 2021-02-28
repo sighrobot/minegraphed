@@ -4,6 +4,7 @@ import React from 'react'
 import { pretty, formatValue, formatValueDiff } from 'lib/format'
 import { PLAYER_IDS } from 'lib/constants'
 import { ItemIcon } from './item-icon'
+import { Disc } from './disc'
 
 const Style = () => {
   return (
@@ -152,6 +153,8 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
         </Link>
       </th>
 
+      <th>{stat.includes('music_disc_') && <Disc />}</th>
+
       {playerNames.map((p) => {
         return (
           <td className={stats[type][stat][p] === max ? 'max' : ''} key={p}>
@@ -220,7 +223,7 @@ export const Table = ({
             <>
               {filteredStatTypeKeys.length > 0 ? (
                 <tr className="heading">
-                  <th colSpan={2}>
+                  <th colSpan={3}>
                     {typeFilter === 'all' ? pretty(type) : ''}
                   </th>
 
