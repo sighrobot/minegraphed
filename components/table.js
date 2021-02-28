@@ -152,9 +152,7 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
         <div className={isDisc ? 'disc' : undefined}>
           {isDisc && <Disc stat={stat} />}
 
-          <Link href={`/stats?stat=${stat}`}>
-            <a>{prettyName}</a>
-          </Link>
+          {prettyName}
         </div>
       </th>
 
@@ -226,9 +224,7 @@ export const Table = ({
             <>
               {filteredStatTypeKeys.length > 0 ? (
                 <tr className="heading">
-                  <th colSpan={2}>
-                    {typeFilter === 'all' ? pretty(type) : ''}
-                  </th>
+                  <th colSpan={2}>{pretty(type)}</th>
 
                   {playerNames}
                 </tr>
