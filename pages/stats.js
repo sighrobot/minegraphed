@@ -88,19 +88,12 @@ const Stats = () => {
       </Head>
       <div className="sticky">
         <input
-          list={value.length > 2 ? 'options' : undefined}
           className={value ? 'active' : ''}
           type="search"
           value={value}
           placeholder="Search stats"
           onChange={handleChange}
         />
-
-        <datalist id="options">
-          {statKeys.map((sk) => (
-            <option key={sk} value={sk} />
-          ))}
-        </datalist>
 
         <div className="inputs">
           <DateFilter date={date} onChange={setDate} />
