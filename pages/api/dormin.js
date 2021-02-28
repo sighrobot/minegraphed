@@ -140,7 +140,9 @@ export default async (req, res, next) => {
                         }
                       ).value.toLocaleString(),
                       (
-                        matchesByStat[k][d].filter((f) => f.p === 'abe')[0] || {
+                        matchesByStat[k][d].filter(
+                          (f) => f.p === 'sighrobot',
+                        )[0] || {
                           value: '-',
                         }
                       ).value.toLocaleString(),
