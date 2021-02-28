@@ -148,12 +148,12 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
       {type !== 'custom' && <td>{icon}</td>}
 
       <th colSpan={type === 'custom' ? 2 : 1}>
+        {stat.includes('music_disc_') && <Disc stat={stat} />}
+
         <Link href={`/stats?stat=${stat}`}>
           <a>{prettyName}</a>
         </Link>
       </th>
-
-      <th>{stat.includes('music_disc_') && <Disc />}</th>
 
       {playerNames.map((p) => {
         return (
@@ -223,7 +223,7 @@ export const Table = ({
             <>
               {filteredStatTypeKeys.length > 0 ? (
                 <tr className="heading">
-                  <th colSpan={3}>
+                  <th colSpan={2}>
                     {typeFilter === 'all' ? pretty(type) : ''}
                   </th>
 
