@@ -142,17 +142,20 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
   const prettyName = pretty(stat)
 
   const icon = <ItemIcon name={stat} />
+  const isDisc = stat.includes('music_disc_')
 
   return (
     <tr key={stat}>
       {type !== 'custom' && <td>{icon}</td>}
 
       <th colSpan={type === 'custom' ? 2 : 1}>
-        {stat.includes('music_disc_') && <Disc stat={stat} />}
+        <div className={isDisc ? 'disc' : undefined}>
+          {isDisc && <Disc stat={stat} />}
 
-        <Link href={`/stats?stat=${stat}`}>
-          <a>{prettyName}</a>
-        </Link>
+          <Link href={`/stats?stat=${stat}`}>
+            <a>{prettyName}</a>
+          </Link>
+        </div>
       </th>
 
       {playerNames.map((p) => {

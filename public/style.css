@@ -326,3 +326,12 @@ summary h3 {
     color: white;
   }
 }
+
+.disc {
+  display: flex;
+  align-items: center;
+}
+
+.disc > div {
+  flex-shrink: 0;
+}
