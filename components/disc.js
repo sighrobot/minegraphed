@@ -36,14 +36,13 @@ export const Disc = ({ stat = '' }) => {
         display: 'inline-block',
         position: 'relative',
         height: '16px',
-        margin: '0 8px 0 3px',
+        margin: '0 5px 0 0px',
         width: '16px',
         borderRadius: '100%',
         // border: '1px solid red',
         boxSizing: 'content-box',
         overflow: 'hidden',
         lineHeight: '36px',
-        top: '2px',
       }}
     >
       <iframe
