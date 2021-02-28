@@ -4,6 +4,7 @@ import React from 'react'
 import { pretty, formatValue, formatValueDiff } from 'lib/format'
 import { PLAYER_IDS } from 'lib/constants'
 import { ItemIcon } from './item-icon'
+import { Disc } from './disc'
 
 const Style = () => {
   return (
@@ -141,15 +142,20 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
   const prettyName = pretty(stat)
 
   const icon = <ItemIcon name={stat} />
+  const isDisc = stat.includes('music_disc_')
 
   return (
     <tr key={stat}>
       {type !== 'custom' && <td>{icon}</td>}
 
       <th colSpan={type === 'custom' ? 2 : 1}>
-        <Link href={`/stats?stat=${stat}`}>
-          <a>{prettyName}</a>
-        </Link>
+        <div className={isDisc ? 'disc' : undefined}>
+          {isDisc && <Disc stat={stat} />}
+
+          <Link href={`/stats?stat=${stat}`}>
+            <a>{prettyName}</a>
+          </Link>
+        </div>
       </th>
 
       {playerNames.map((p) => {
