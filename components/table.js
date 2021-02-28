@@ -144,8 +144,9 @@ const statsFunc = (stat, playerNames, stats, type, isDiff) => {
 
   return (
     <tr key={stat}>
-      <td>{icon}</td>
-      <th>
+      {type !== 'custom' && <td>{icon}</td>}
+
+      <th colSpan={type === 'custom' ? 2 : 1}>
         <Link href={`/stats?stat=${stat}`}>
           <a>{prettyName}</a>
         </Link>
