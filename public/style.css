@@ -284,6 +284,89 @@ summary h3 {
   /* margin-top: px; */
 }
 
+.disc {
+  display: flex;
+  align-items: center;
+}
+
+.disc > div {
+  flex-shrink: 0;
+}
+
+.advancement {
+  font-size: 14px;
+}
+
+.advancement-name {
+  background: lightgray;
+  padding: 0 10px;
+  height: 37px;
+  position: sticky;
+  top: 74px;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+}
+
+.criterion-name {
+  background: rgba(0, 0, 0, 0.025);
+  height: 14px;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.criterion-collection {
+  position: relative;
+  height: 37px;
+}
+.criterion-collection:hover {
+  background: rgba(255, 255, 0, 0.1);
+}
+.criterion-collection mark {
+  left: 0;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  opacity: 0.7;
+  border: 1px solid black;
+  background: black;
+}
+
+.timeline {
+  font-size: 14px;
+  padding: 0 10px;
+  position: sticky;
+  height: 37px;
+  top: 37px;
+  background: white;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.legend {
+  display: flex;
+  height: 37px;
+  top: 0;
+  position: sticky;
+  z-index: 6;
+  background: white;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.legend > div mark {
+  margin-right: 5px;
+  border: 1px solid black;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background: black;
@@ -294,8 +377,27 @@ summary h3 {
     background: rgba(255, 255, 255, 0.01);
   }
 
+  mark {
+    border-color: white !important;
+  }
+
   a.active {
     color: white;
+  }
+  .timeline {
+    background: #333;
+  }
+
+  .legend {
+    background: #444;
+  }
+
+  .advancement-name {
+    background: #222;
+  }
+
+  .criterion-name {
+    background: #111;
   }
 
   tr.heading {
@@ -333,13 +435,4 @@ summary h3 {
   .inputs .stat-token {
     color: white;
   }
-}
-
-.disc {
-  display: flex;
-  align-items: center;
-}
-
-.disc > div {
-  flex-shrink: 0;
 }
