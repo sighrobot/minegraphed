@@ -11,14 +11,18 @@ const Container = ({ children, isPadded = true, useDate = false }) => {
       <header>
         <nav>
           <Link href="/">
-            <a className={router.pathname === '/' ? 'active' : ''}>
-              Adventure Log
-            </a>
+            <a className={router.pathname === '/' ? 'active' : ''}>Log</a>
           </Link>{' '}
           |{' '}
           <Link href="/stats">
             <a className={router.pathname === '/stats' ? 'active' : ''}>
-              Game Stats
+              Stats
+            </a>
+          </Link>{' '}
+          |{' '}
+          <Link href="/advancements">
+            <a className={router.pathname === '/advancements' ? 'active' : ''}>
+              Advancements
             </a>
           </Link>
         </nav>

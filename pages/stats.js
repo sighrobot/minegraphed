@@ -1,7 +1,6 @@
 import React from 'react'
 import Container from 'components/container'
 import Seg from 'components/seg'
-import DateFilter from 'components/date-filter'
 import Head from 'next/head'
 
 import Table from 'components/table'
