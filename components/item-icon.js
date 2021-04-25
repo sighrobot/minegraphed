@@ -7,7 +7,7 @@ const entitiesByName = keyBy(entities, (e) =>
   e.name.toLowerCase().replace(/ /g, '_'),
 )
 
-export const ItemIcon = ({ name }) => {
+export const ItemIcon = ({ name = '' }) => {
   const e = entitiesByName[name]
   if (e) {
     return (
