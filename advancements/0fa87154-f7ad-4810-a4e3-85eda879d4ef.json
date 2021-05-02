@@ -898,6 +898,7 @@
       "minecraft:pillager": "2020-05-23 20:41:01 +0000",
       "minecraft:blaze": "2020-12-20 20:38:58 +0000",
       "minecraft:skeleton": "2020-05-09 21:32:42 +0000",
+      "minecraft:ravager": "2021-05-02 21:09:12 +0000",
       "minecraft:hoglin": "2020-06-25 22:39:03 +0000",
       "minecraft:vindicator": "2021-01-30 20:49:57 +0000",
       "minecraft:magma_cube": "2020-08-16 19:49:00 +0000",
@@ -3448,6 +3449,12 @@
   "minecraft:recipes/building_blocks/chiseled_nether_bricks_from_nether_bricks_stonecutting": {
     "criteria": {
       "has_nether_bricks": "2020-12-20 20:19:38 +0000"
+    },
+    "done": true
+  },
+  "minecraft:husbandry/tactical_fishing": {
+    "criteria": {
+      "cod_bucket": "2021-05-02 19:00:31 +0000"
     },
     "done": true
   },
