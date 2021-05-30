@@ -1545,6 +1545,12 @@
     },
     "done": true
   },
+  "minecraft:recipes/building_blocks/birch_planks": {
+    "criteria": {
+      "has_logs": "2021-05-30 18:45:54 +0000"
+    },
+    "done": true
+  },
   "minecraft:recipes/building_blocks/black_concrete_powder": {
     "criteria": {
       "has_gravel": "2020-05-09 18:45:56 +0000"
@@ -2569,6 +2575,7 @@
       "cooked_cod": "2020-06-16 20:04:02 +0000",
       "mutton": "2020-06-10 19:57:09 +0000",
       "bread": "2020-05-09 21:30:11 +0000",
+      "golden_apple": "2021-05-30 19:02:15 +0000",
       "cookie": "2020-06-08 22:14:04 +0000",
       "suspicious_stew": "2021-04-04 21:13:27 +0000",
       "melon_slice": "2020-06-10 19:45:38 +0000",
@@ -3371,6 +3378,12 @@
   "minecraft:recipes/decorations/blue_bed_from_white_bed": {
     "criteria": {
       "has_bed": "2021-04-04 19:33:38 +0000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/pink_dye_from_pink_tulip": {
+    "criteria": {
+      "has_red_flower": "2021-05-30 18:45:19 +0000"
     },
     "done": true
   },
