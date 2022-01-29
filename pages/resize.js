@@ -1,112 +1,113 @@
-import React from "react";
-import request from "superagent";
+import React from 'react'
+import request from 'superagent'
 
-const downsize = "s-1vcpu-1gb";
-const upsize = "s-6vcpu-16gb";
+const downsize = 's-1vcpu-1gb'
+const upsize = 'g-8vcpu-32gb'
 
-const ms = 5000;
+const ms = 5000
 
 async function poll(fn, fnCondition, appendMsg = () => {}) {
-  let result = await fn();
+  let result = await fn()
   while (!fnCondition(result)) {
-    await wait(appendMsg);
-    result = await fn();
+    await wait(appendMsg)
+    result = await fn()
   }
-  return result;
+  return result
 }
 
 function wait(appendMsg) {
   return new Promise((resolve) => {
-    appendMsg("\n.");
-    setTimeout(resolve, ms);
-  });
+    appendMsg('\n.')
+    setTimeout(resolve, ms)
+  })
 }
 
 export default () => {
-  const [text, setText] = React.useState("");
-  const [currentSize, setCurrentSize] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const [text, setText] = React.useState('')
+  const [currentSize, setCurrentSize] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
-    (async () => {
-      const { body: droplet } = await request("/api/getDrop");
+    ;(async () => {
+      const { body: droplet } = await request('/api/getDrop')
 
-      setCurrentSize(droplet.size.slug);
-    })();
-  }, []);
+      setCurrentSize(droplet.size.slug)
+    })()
+  }, [])
 
   const handleResize = async (size) => {
-    setLoading(true);
-    const { body: droplet } = await request("/api/getDrop");
+    setLoading(true)
+    const { body: droplet } = await request('/api/getDrop')
 
     setText(
-      (t) => (t += `\nDroplet ${droplet.status} with size ${droplet.size.slug}`)
-    );
+      (t) =>
+        (t += `\nDroplet ${droplet.status} with size ${droplet.size.slug}`),
+    )
 
-    const { body: action } = await request(`/api/resize?size=${size}`);
+    const { body: action } = await request(`/api/resize?size=${size}`)
 
-    setText((t) => (t += `\n\nResizing ${action.status}...`));
+    setText((t) => (t += `\n\nResizing ${action.status}...`))
 
-    const pollResize = () => request(`/api/getAction?id=${action.id}`);
-    const pollResizeCondx = ({ body: a }) => a.status === "completed";
+    const pollResize = () => request(`/api/getAction?id=${action.id}`)
+    const pollResizeCondx = ({ body: a }) => a.status === 'completed'
 
     const { body: resizeAction } = await poll(
       pollResize,
       pollResizeCondx,
-      (dot) => setText((t) => (t += dot))
-    );
+      (dot) => setText((t) => (t += dot)),
+    )
 
-    setText((t) => (t += `\n\nResize ${resizeAction.status}.`));
+    setText((t) => (t += `\n\nResize ${resizeAction.status}.`))
 
-    setText((t) => (t += `\n\nPowering back on...`));
+    setText((t) => (t += `\n\nPowering back on...`))
 
-    await request(`/api/powerOn`);
+    await request(`/api/powerOn`)
 
-    const pollPower = () => request("/api/getDrop");
-    const pollPowerCondx = ({ body: d }) => d.status === "active";
+    const pollPower = () => request('/api/getDrop')
+    const pollPowerCondx = ({ body: d }) => d.status === 'active'
 
     const { body: power } = await poll(pollPower, pollPowerCondx, (dot) =>
-      setText((t) => (t += dot))
-    );
+      setText((t) => (t += dot)),
+    )
 
     setText(
       (t) =>
-        (t += `\n\nDroplet ${power.status} with size ${power.size.slug}.\n\n`)
-    );
+        (t += `\n\nDroplet ${power.status} with size ${power.size.slug}.\n\n`),
+    )
 
-    setCurrentSize(power.size.slug);
-    setLoading(false);
-  };
+    setCurrentSize(power.size.slug)
+    setLoading(false)
+  }
 
   return (
     <div>
       <aside>
         {!currentSize
-          ? "Loading..."
+          ? 'Loading...'
           : loading
-          ? "Scaling in progress..."
+          ? 'Scaling in progress...'
           : currentSize === upsize
           ? "Ready to play! Don't forget to scale down when you're done."
-          : "Want to play MC? Scale up before you join the server!"}
+          : 'Want to play MC? Scale up before you join the server!'}
       </aside>
       <menu>
         <button
           onClick={(e) => {
-            e.preventDefault();
-            handleResize(upsize);
+            e.preventDefault()
+            handleResize(upsize)
           }}
           disabled={loading || currentSize !== downsize}
         >
-          {"▶"} Scale up
+          {'▶'} Scale up
         </button>
         <button
           onClick={(e) => {
-            e.preventDefault();
-            handleResize(downsize);
+            e.preventDefault()
+            handleResize(downsize)
           }}
           disabled={loading || currentSize !== upsize}
         >
-          {"■"} Scale down
+          {'■'} Scale down
         </button>
       </menu>
       <textarea spellCheck={false} readOnly value={text} />
@@ -172,5 +173,5 @@ export default () => {
         }
     `}</style>
     </div>
-  );
-};
+  )
+}
