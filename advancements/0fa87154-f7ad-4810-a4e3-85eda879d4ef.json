@@ -101,6 +101,12 @@
     },
     "done": true
   },
+  "minecraft:recipes/building_blocks/chiseled_stone_bricks": {
+    "criteria": {
+      "has_tag": "2022-02-26 19:25:25 +0000"
+    },
+    "done": true
+  },
   "minecraft:recipes/tools/iron_pickaxe": {
     "criteria": {
       "has_iron_ingot": "2020-05-09 19:16:04 +0000"
@@ -1805,6 +1811,7 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
+      "minecraft:snowy_slopes": "2022-02-26 19:41:08 +0000",
       "minecraft:taiga": "2020-05-09 18:39:26 +0000",
       "minecraft:deep_ocean": "2022-01-29 18:56:57 +0000",
       "minecraft:birch_forest": "2021-04-04 19:25:33 +0000",
@@ -1828,6 +1835,8 @@
       "minecraft:ocean": "2022-01-29 18:45:34 +0000",
       "minecraft:warm_ocean": "2021-03-27 19:21:48 +0000",
       "minecraft:deep_lukewarm_ocean": "2020-05-19 18:37:14 +0000",
+      "minecraft:frozen_peaks": "2022-02-26 19:41:25 +0000",
+      "minecraft:meadow": "2022-02-26 19:50:57 +0000",
       "minecraft:savanna": "2020-05-30 20:05:13 +0000",
       "minecraft:plains": "2020-05-09 21:20:38 +0000"
     },
@@ -2373,6 +2382,12 @@
   "minecraft:adventure/hero_of_the_village": {
     "criteria": {
       "hero_of_the_village": "2021-01-30 20:51:10 +0000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/candle": {
+    "criteria": {
+      "has_string": "2022-02-26 19:46:59 +0000"
     },
     "done": true
   },
@@ -4143,6 +4158,12 @@
   "minecraft:recipes/building_blocks/purpur_pillar": {
     "criteria": {
       "has_purpur_block": "2021-01-23 20:59:27 +0000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/glow_item_frame": {
+    "criteria": {
+      "has_glow_ink_sac": "2022-02-26 20:03:38 +0000"
     },
     "done": true
   },
