@@ -55,7 +55,7 @@ export const Disc = ({ stat = '' }) => {
         width="100"
         height="100"
         scrolling="no"
-        frameborder="no"
+        frameBorder="no"
         allow="autoplay"
         src={`${url}&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false`}
       ></iframe>

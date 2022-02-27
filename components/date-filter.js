@@ -1,8 +1,8 @@
-import React from 'react';
-import { SESSIONS } from 'lib/constants';
+import React from 'react'
+import { SESSIONS } from 'lib/constants'
 
 const DateFilter = ({ date, onChange }) => {
-  const handleChange = (e) => onChange(e.target.value);
+  const handleChange = (e) => onChange(e.target.value)
 
   return (
     <div className="date-filter">
@@ -15,13 +15,13 @@ const DateFilter = ({ date, onChange }) => {
           All-time
         </option>
         {SESSIONS.slice(0, SESSIONS.length - 1).map((d) => (
-          <option name={d} value={d}>
+          <option key={d} name={d} value={d}>
             {d}
           </option>
         ))}
       </select>
     </div>
-  );
-};
+  )
+}
 
-export default DateFilter;
+export default DateFilter

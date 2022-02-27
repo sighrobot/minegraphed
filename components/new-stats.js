@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link'
 import { getNewStats } from 'lib/getNewStats'
 import { ItemIcon } from './item-icon'
@@ -27,7 +28,7 @@ const NewStats = ({ date }) => {
     <div className="new-stats">
       <p>
         {sortedByItem.map((i) => {
-          return <ItemIcon name={i} />
+          return <ItemIcon key={i} name={i} />
         })}
       </p>
 
