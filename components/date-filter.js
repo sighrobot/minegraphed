@@ -1,7 +1,7 @@
 import React from 'react'
 import { SESSIONS } from 'lib/constants'
 
-const DateFilter = ({ date, onChange }) => {
+const DateFilter = ({ season, date, onChange }) => {
   const handleChange = (e) => onChange(e.target.value)
 
   return (
@@ -14,7 +14,7 @@ const DateFilter = ({ date, onChange }) => {
         <option name={'all'} value={'all'}>
           All-time
         </option>
-        {SESSIONS.slice(0, SESSIONS.length - 1).map((d) => (
+        {SESSIONS[season].slice(0, SESSIONS[season].length - 1).map((d) => (
           <option key={d} name={d} value={d}>
             {d}
           </option>

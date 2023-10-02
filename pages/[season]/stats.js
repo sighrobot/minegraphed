@@ -7,9 +7,14 @@ import Table from 'components/table'
 import { buildStats, buildStatsDiff } from 'lib/build-stats'
 import { pretty } from 'lib/format'
 import { ItemIcon } from 'components/item-icon'
+import { useRouter } from 'next/router'
 const { SESSIONS } = require('lib/constants')
 
 const Stats = ({ date, setDate }) => {
+  const router = useRouter()
+  const { season = 's1' } = router.query
+  console.log({ season })
+
   const [value, setValue] = React.useState('')
   const handleChange = (e) => setValue(e.target.value)
   const [type, setType] = React.useState('all')
@@ -31,14 +36,19 @@ const Stats = ({ date, setDate }) => {
   }
 
   return (
-    <Container isPadded={false} useDate>
+    <Container season={season} isPadded={false} useDate>
       {({ date, setDate }) => {
         const stats = React.useMemo(
           () =>
-            (date !== 'all' ? buildStatsDiff : buildStats)(
-              date === 'all' ? SESSIONS[0] : date,
-            ),
-          [date],
+            season
+              ? (date !== 'all' ? buildStatsDiff : buildStats)(
+                  season,
+                  date === 'all' || SESSIONS[season].indexOf(date) === -1
+                    ? SESSIONS[season][0]
+                    : date,
+                )
+              : {},
+          [season, date],
         )
         const statTypes = React.useMemo(() => Object.keys(stats), [stats])
 

@@ -3,33 +3,77 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import DateFilter from './date-filter'
 
-const Container = ({ children, isPadded = true, useDate = false }) => {
+const Container = ({
+  season,
+  children,
+  isPadded = true,
+  useDate = false,
+  hideHeader,
+}) => {
   const router = useRouter()
+
   const [date, setDate] = React.useState(router.query.date ?? 'all')
+
+  console.log({ date })
+
+  React.useEffect(() => {
+    setDate('all')
+  }, [season])
+
+  console.log(router)
+
+  const handleChangeSeason = (e) =>
+    router.push(router.asPath.replace(/s\d/, e.target.value))
 
   return (
     <main>
-      <header>
-        <nav>
-          <Link href="/">
-            <a className={router.pathname === '/' ? 'active' : ''}>Log</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/stats">
-            <a className={router.pathname === '/stats' ? 'active' : ''}>
-              Stats
-            </a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/advancements">
-            <a className={router.pathname === '/advancements' ? 'active' : ''}>
-              Advancements
-            </a>
-          </Link>
-        </nav>
+      {!hideHeader && (
+        <header>
+          {season && (
+            <div className="date-filter">
+              <select
+                style={{ background: 'purple', color: 'white' }}
+                onChange={handleChangeSeason}
+                value={season}
+              >
+                <option value="s1">Season 1</option>
+                <option value="s2">Season 2</option>
+              </select>
+            </div>
+          )}
 
-        {useDate && <DateFilter date={date} onChange={setDate} />}
-      </header>
+          <nav>
+            <Link href={`/${season}`}>
+              <a className={router.asPath === `/${season}` ? 'active' : ''}>
+                Log
+              </a>
+            </Link>{' '}
+            |{' '}
+            <Link href={`/${season}/stats`}>
+              <a
+                className={router.asPath === `/${season}/stats` ? 'active' : ''}
+              >
+                Stats
+              </a>
+            </Link>{' '}
+            |{' '}
+            <Link href={`/${season}/advancements`}>
+              <a
+                className={
+                  router.asPath === `/${season}/advancements` ? 'active' : ''
+                }
+              >
+                Advancement
+              </a>
+            </Link>
+          </nav>
+          {useDate ? (
+            <DateFilter season={season} date={date} onChange={setDate} />
+          ) : (
+            <div style={{ flexShrink: 0 }} />
+          )}
+        </header>
+      )}
 
       <section style={{ padding: isPadded ? '0 10px' : '0' }}>
         {typeof children === 'function'

@@ -19,7 +19,7 @@ body {
 
 main {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 main header {
@@ -27,13 +27,17 @@ main header {
   line-height: 74px;
   height: 74px;
   border-bottom: 1px solid gray;
-}
-
-main header {
   display: flex;
+  font-size: 14px;
+  letter-spacing: -0.5px;
 }
 
-main header .date-filter {
+main nav {
+  justify-self: flex-start;
+  margin-left: 10px;
+}
+
+main header .date-filter:not(:first-child) {
   margin-left: auto;
 }
 
@@ -215,8 +219,6 @@ summary h3 {
 }
 
 .log-entry > * > * > .icon-minecraft-sm {
-  /* height: 25px;
-  width: 25px; */
   margin-right: 5px;
 }
 
@@ -235,10 +237,12 @@ summary h3 {
   outline: 0;
   border-radius: 0;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 0 5px;
   border-color: gray;
-  font-size: 14px;
+  font-size: 12px;
   font-family: inherit;
+  padding-right: 0;
+  letter-spacing: -0.5px;
   height: 37px;
 }
 
@@ -281,7 +285,6 @@ summary h3 {
 
 .personal-stat p {
   margin: 0;
-  /* margin-top: px; */
 }
 
 .disc {

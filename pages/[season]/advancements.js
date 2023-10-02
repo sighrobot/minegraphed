@@ -3,21 +3,23 @@ import { buildAdv } from 'lib/build-adv'
 import { PLAYER_IDS, PLAYER_COLORS } from 'lib/constants'
 import { pretty } from 'lib/format'
 import { orderBy, startCase } from 'lodash'
+import { useRouter } from 'next/router'
 import React from 'react'
-
-const adv = buildAdv()
-
-const { min, max } = adv
 
 const players = Object.keys(PLAYER_IDS)
 
-const startDate = new Date(min)
-const start = startDate.getTime()
-const endDate = new Date(max)
-const end = endDate.getTime()
-const span = end - start
-
 export default () => {
+  const router = useRouter()
+  const { season = 's1' } = router.query
+
+  const adv = React.useMemo(() => buildAdv(season), [season])
+  const { min, max } = adv
+  const startDate = new Date(min)
+  const start = startDate.getTime()
+  const endDate = new Date(max)
+  const end = endDate.getTime()
+  const span = end - start
+
   const [width, setWidth] = React.useState(0)
   React.useEffect(() => {
     setWidth(Math.min(window.innerWidth, 800))
@@ -29,7 +31,7 @@ export default () => {
   }
 
   return (
-    <Container isPadded={false} useDate>
+    <Container season={season} isPadded={false}>
       <div className="legend">
         {players.map((p) => (
           <div key={p}>

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import Container from 'components/container'
 import Head from 'next/head'
 import { customStats } from 'lib/build-stats'
-import Link from 'next/link'
 import { formatValue, pretty } from 'lib/format'
 import { ItemIcon } from 'components/item-icon'
 
@@ -21,10 +20,7 @@ export const PersonalStat = ({
       <h3>{title}</h3>
       <h4>{subtitle}</h4>
       <p>
-        {prettyType} {formatValue(stat, value)} {icon}{' '}
-        <Link href={`/stats?stat=${stat}`}>
-          <a>{prettyStat}</a>
-        </Link>
+        {prettyType} {formatValue(stat, value)} {icon} {prettyStat}
       </p>
     </article>
   )
@@ -32,14 +28,14 @@ export const PersonalStat = ({
 
 const Session = () => {
   const {
-    query: { name },
+    query: { name, season = 's1' },
   } = useRouter()
 
   if (name) {
-    const { hu, gp } = customStats(name)
+    const { hu, gp } = customStats(season, name)
 
     return (
-      <Container>
+      <Container season={season}>
         <Head>
           <title>{name} - JCA-MC</title>
         </Head>

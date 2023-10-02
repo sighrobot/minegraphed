@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { getNewStats } from 'lib/getNewStats'
 import { ItemIcon } from './item-icon'
 
-const NewStats = ({ date }) => {
-  const newStats = React.useMemo(() => getNewStats(date), [date])
+const NewStats = ({ season, date }) => {
+  const newStats = React.useMemo(() => getNewStats(season, date), [date])
 
   const byItem = {}
 
