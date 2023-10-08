@@ -14,13 +14,9 @@ const Container = ({
 
   const [date, setDate] = React.useState(router.query.date ?? 'all')
 
-  console.log({ date })
-
   React.useEffect(() => {
     setDate('all')
   }, [season])
-
-  console.log(router)
 
   const handleChangeSeason = (e) =>
     router.push(router.asPath.replace(/s\d/, e.target.value))

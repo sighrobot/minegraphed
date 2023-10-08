@@ -88,8 +88,6 @@ export default async (req, res, next) => {
       }
     })
 
-    console.log(matchesByStat)
-
     const matchKeys = Object.keys(matchesByStat)
 
     const noun = matchKeys.length === 1 ? 'stat' : 'stats'
@@ -148,8 +146,6 @@ export default async (req, res, next) => {
                       ).value.toLocaleString(),
                     )
                   })
-
-                console.log(table.toString())
 
                 // const max = Math.max(...matchesByStat[k].map(d => d.value));
 

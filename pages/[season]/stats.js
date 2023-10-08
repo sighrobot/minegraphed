@@ -13,7 +13,6 @@ const { SESSIONS } = require('lib/constants')
 const Stats = ({ date, setDate }) => {
   const router = useRouter()
   const { season = 's1' } = router.query
-  console.log({ season })
 
   const [value, setValue] = React.useState('')
   const handleChange = (e) => setValue(e.target.value)
