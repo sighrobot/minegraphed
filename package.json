@@ -1,5 +1,5 @@
 {
-  "name": "resizer",
+  "name": "minegraphed",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,10 @@
   },
   "dependencies": {
     "ascii-table": "0.0.9",
-    "digitalocean": "1.2.1",
     "lodash": "4.17.21",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "superagent": "5.2.2",
     "tweetnacl": "1.0.3"
   }
 }
