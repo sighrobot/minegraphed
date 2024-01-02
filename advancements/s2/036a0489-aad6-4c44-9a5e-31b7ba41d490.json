@@ -7,12 +7,17 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
+      "minecraft:flower_forest": "2024-01-01 22:39:41 +0000",
       "minecraft:savanna_plateau": "2023-10-08 19:47:42 +0000",
       "minecraft:forest": "2023-10-08 19:54:30 +0000",
       "minecraft:sparse_jungle": "2023-10-08 20:14:25 +0000",
-      "minecraft:jungle": "2023-10-08 19:55:43 +0000",
       "minecraft:river": "2023-10-08 18:17:07 +0000",
       "minecraft:stony_shore": "2023-10-22 02:17:46 +0000",
+      "minecraft:jungle": "2023-10-08 19:55:43 +0000",
+      "minecraft:ocean": "2024-01-01 23:35:52 +0000",
+      "minecraft:sunflower_plains": "2024-01-01 22:39:57 +0000",
+      "minecraft:meadow": "2024-01-01 23:24:41 +0000",
+      "minecraft:birch_forest": "2024-01-01 23:39:09 +0000",
       "minecraft:savanna": "2023-10-01 21:21:19 +0000",
       "minecraft:bamboo_jungle": "2023-10-08 20:13:01 +0000",
       "minecraft:plains": "2023-10-08 19:48:45 +0000"
@@ -2031,7 +2036,25 @@
     },
     "done": true
   },
+  "minecraft:recipes/misc/iron_ingot_from_iron_block": {
+    "criteria": {
+      "has_iron_block": "2023-11-14 03:15:28 +0000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/anvil": {
+    "criteria": {
+      "has_iron_block": "2023-11-14 03:15:28 +0000"
+    },
+    "done": true
+  },
   "minecraft:recipes/decorations/fletching_table": {
+    "criteria": {
+      "has_flint": "2023-11-14 03:58:09 +0000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/flint_and_steel": {
     "criteria": {
       "has_flint": "2023-11-14 03:58:09 +0000"
     },
@@ -2055,12 +2078,6 @@
     },
     "done": true
   },
-  "minecraft:recipes/tools/flint_and_steel": {
-    "criteria": {
-      "has_flint": "2023-11-14 03:58:09 +0000"
-    },
-    "done": true
-  },
   "minecraft:recipes/redstone/oak_fence_gate": {
     "criteria": {
       "has_planks": "2023-11-14 04:00:21 +0000"
@@ -2079,18 +2096,6 @@
     },
     "done": true
   },
-  "minecraft:recipes/misc/iron_ingot_from_iron_block": {
-    "criteria": {
-      "has_iron_block": "2023-11-14 03:15:28 +0000"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/map": {
-    "criteria": {
-      "has_compass": "2023-11-14 04:26:46 +0000"
-    },
-    "done": true
-  },
   "minecraft:recipes/building_blocks/oak_stairs": {
     "criteria": {
       "has_planks": "2023-11-14 04:00:21 +0000"
@@ -2103,15 +2108,15 @@
     },
     "done": true
   },
-  "minecraft:recipes/decorations/anvil": {
-    "criteria": {
-      "has_iron_block": "2023-11-14 03:15:28 +0000"
-    },
-    "done": true
-  },
   "minecraft:recipes/redstone/oak_button": {
     "criteria": {
       "has_planks": "2023-11-14 04:00:21 +0000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/map": {
+    "criteria": {
+      "has_compass": "2023-11-14 04:26:46 +0000"
     },
     "done": true
   },
@@ -2121,5 +2126,17 @@
     },
     "done": true
   },
-  "DataVersion": 3578
+  "minecraft:recipes/decorations/glow_item_frame": {
+    "criteria": {
+      "has_glow_ink_sac": "2024-01-01 23:16:22 +0000"
+    },
+    "done": true
+  },
+  "minecraft:story/shiny_gear": {
+    "criteria": {
+      "diamond_boots": "2024-01-01 22:52:01 +0000"
+    },
+    "done": true
+  },
+  "DataVersion": 3700
 }
